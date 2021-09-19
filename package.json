@@ -11,11 +11,14 @@
   },
   "dependencies": {
     "@codler/react-native-keyboard-aware-scroll-view": "^2.0.0",
+    "@react-native-async-storage/async-storage": "^1.15.8",
     "@react-navigation/native": "^6.0.2",
     "@react-navigation/stack": "^6.0.7",
     "axios": "^0.21.4",
+    "formik": "^2.2.9",
     "react": "17.0.2",
     "react-native": "0.65.1",
+    "react-native-flash-message": "^0.2.0",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.7.2",
@@ -24,7 +27,8 @@
     "redux": "^4.1.1",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.3.0",
-    "uninstall": "0.0.0"
+    "uninstall": "0.0.0",
+    "yup": "^0.32.9"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

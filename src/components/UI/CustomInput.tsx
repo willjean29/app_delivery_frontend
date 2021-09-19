@@ -15,6 +15,9 @@ interface CustomInputProps {
   autoCorrect?: boolean;
   keyboardType?: KeyboardTypeOptions;
   secureTextEntry?: boolean;
+  value: string;
+  errorMessage?: string;
+  onChangeText: (text: string) => void;
 }
 
 const CustomInput: React.FC<CustomInputProps> = ({
@@ -24,33 +27,46 @@ const CustomInput: React.FC<CustomInputProps> = ({
   autoCorrect = false,
   keyboardType = 'default',
   secureTextEntry = false,
+  value = '',
+  errorMessage,
+  onChangeText,
 }) => {
   return (
     <View style={styles.viewContainer}>
-      <Icon
-        name={iconName}
-        size={20}
-        color={ColorsApp.PRIMARY_COLOR}
-        style={styles.iconStyle}
-      />
-      <TextInput
-        secureTextEntry={secureTextEntry}
-        placeholder={placeHolder}
-        placeholderTextColor={ColorsApp.PRIMARY_COLOR}
-        style={styles.inputText}
-        autoCapitalize={autoCapitalize}
-        autoCorrect={autoCorrect}
-        keyboardType={keyboardType}
-      />
+      <View style={styles.viewContainerInput}>
+        <Icon
+          name={iconName}
+          size={20}
+          color={ColorsApp.PRIMARY_COLOR}
+          style={styles.iconStyle}
+        />
+        <TextInput
+          secureTextEntry={secureTextEntry}
+          placeholder={placeHolder}
+          placeholderTextColor={ColorsApp.PRIMARY_COLOR}
+          style={styles.inputText}
+          autoCapitalize={autoCapitalize}
+          autoCorrect={autoCorrect}
+          keyboardType={keyboardType}
+          value={value}
+          onChangeText={text => onChangeText(text)}
+        />
+      </View>
+      {errorMessage && (
+        <Text style={styles.txtErrorMessage}>{errorMessage}</Text>
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   viewContainer: {
+    // borderWidth: 1,
+    marginVertical: 10,
+  },
+  viewContainerInput: {
     position: 'relative',
     justifyContent: 'center',
-    marginVertical: 10,
   },
   iconStyle: {
     position: 'absolute',
@@ -67,6 +83,14 @@ const styles = StyleSheet.create({
     paddingLeft: 40,
     // paddingVertical: 10,
     color: ColorsApp.PRIMARY_COLOR,
+  },
+  txtErrorMessage: {
+    color: ColorsApp.PRIMARY_COLOR,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    paddingTop: 5,
+    fontSize: 12,
+    // borderWidth: 1,
   },
 });
 

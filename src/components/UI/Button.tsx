@@ -8,7 +8,7 @@ interface ButtonProps {
 }
 
 const Button: React.FC<ButtonProps> = ({title, onPress}) => {
-  const demo = () => {};
+  console.log('button');
   return (
     <TouchableOpacity
       activeOpacity={0.6}
@@ -34,4 +34,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Button;
+export default React.memo(Button);

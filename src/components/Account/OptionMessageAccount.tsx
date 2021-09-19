@@ -15,7 +15,7 @@ const OptionMessageAccount: React.FC<OptionMessageAccountProps> = ({
   routeName,
 }) => {
   const navigation = useNavigation();
-
+  console.log('message accout');
   return (
     <View style={styles.viewNewAccount}>
       <Text style={styles.txtNewAccount}>{message}</Text>
@@ -54,4 +54,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default OptionMessageAccount;
+export default React.memo(OptionMessageAccount);
