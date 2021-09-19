@@ -1,16 +1,17 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {Provider} from 'react-redux';
 import NotAuthenticatedNavigation from 'navigation/NotAuthenticatedNavigation';
-
+import {store} from 'store/store';
 interface AppProps {}
 
 const App: React.FC<AppProps> = () => {
+  console.log('holaaa mundo');
+
   return (
-    // <View>
-    //   <Text>DELEVERY APP</Text>
-    // </View>
-    <NotAuthenticatedNavigation />
+    <Provider store={store}>
+      <NotAuthenticatedNavigation />
+    </Provider>
   );
 };
 

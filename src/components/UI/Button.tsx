@@ -4,11 +4,16 @@ import {ColorsApp} from 'utils/enums';
 
 interface ButtonProps {
   title: string;
+  onPress: Function;
 }
 
-const Button: React.FC<ButtonProps> = ({title}) => {
+const Button: React.FC<ButtonProps> = ({title, onPress}) => {
+  const demo = () => {};
   return (
-    <TouchableOpacity activeOpacity={0.6} style={styles.btnContainer}>
+    <TouchableOpacity
+      activeOpacity={0.6}
+      style={styles.btnContainer}
+      onPress={() => onPress()}>
       <Text style={styles.btnText}>{title}</Text>
     </TouchableOpacity>
   );

@@ -1,5 +1,6 @@
 import {Dimensions} from 'react-native';
 const {width, height} = Dimensions.get('window');
+
 export enum RoutesNames {
   NOT_ATHENTICATED_ROUTES = 'NotAthenticatedRoutes',
   LOGIN_SCREEN = 'LoginScreen',
@@ -15,6 +16,12 @@ export enum ColorsApp {
 export enum DimensionsDevice {
   WIDTH_DEVICE = width,
   HEIGHT_DEVICE = height,
+}
+
+export enum StatusUser {
+  CHECKING = 'checking',
+  AUTHENTICATED = 'authenticated',
+  NOT_ATHENTICATED = 'not-authenticated',
 }
 
 const nameIcons = [
