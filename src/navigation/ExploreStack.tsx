@@ -17,8 +17,14 @@ const ExploreStack: React.FC<ExploreStackProps> = () => {
           backgroundColor: '#fff',
         },
       }}>
-      <Stack.Screen name="RestaurantsScreen" component={RestaurantsScreen} />
-      <Stack.Screen name="ExploreScreen" component={ExploreScreen} />
+      {/* <Stack.Screen
+        name={RoutesNames.RESTAURANTS_SCREEN}
+        component={RestaurantsScreen}
+      /> */}
+      <Stack.Screen
+        name={RoutesNames.EXPLORE_SCREEN}
+        component={ExploreScreen}
+      />
     </Stack.Navigator>
   );
 };

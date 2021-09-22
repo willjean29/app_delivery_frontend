@@ -1,12 +1,12 @@
 import React from 'react';
-import {View, Text, Platform} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import ExploreStack from 'navigation/ExploreStack';
-import OrdersStack from 'navigation/OrdersScreen';
+import OrdersStack from 'navigation/OrdersStack';
 import FavoritesStack from 'navigation/FavoritesStack';
 import ProfileStack from 'navigation/ProfileStack';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {ColorsApp} from 'utils/enums';
+import {ColorsApp, RoutesNames} from 'utils/enums';
 const Tab = createBottomTabNavigator();
 
 interface BottomTabStackProps {}
@@ -14,57 +14,32 @@ interface BottomTabStackProps {}
 const BottomTabStack: React.FC<BottomTabStackProps> = () => {
   return (
     <Tab.Navigator
-      sceneContainerStyle={{
-        backgroundColor: 'red',
-      }}
       screenOptions={({route}) => ({
         headerShown: false,
         tabBarIcon: ({focused, color, size}) =>
           selectedIcon(route, color, size, focused),
         tabBarActiveTintColor: ColorsApp.PRIMARY_COLOR,
-        tabBarInactiveTintColor: '#c7c7c7',
+        tabBarInactiveTintColor: ColorsApp.GRAY_COLOR,
         tabBarShowLabel: false,
-        tabBarStyle: {
-          position: 'absolute',
-          bottom: 20,
-          height: 50,
-          paddingBottom: 0,
-          borderRadius: 10,
-          left: '5%',
-          right: '5%',
-          width: '90%',
-          borderTopWidth: 0,
-          shadowColor: '#000',
-          shadowOffset: {
-            width: 0,
-            height: 5,
-          },
-          shadowOpacity: 0.34,
-          shadowRadius: 6.27,
-
-          elevation: 10,
-        },
-        tabBarItemStyle: {
-          borderRadius: 10,
-        },
+        tabBarStyle: {...styles.customTabBar},
       })}>
       <Tab.Screen
-        name="ExploreStack"
+        name={RoutesNames.EXPLORE_STACK}
         component={ExploreStack}
         options={{title: 'Explorar'}}
       />
       <Tab.Screen
-        name="OrdersStack"
+        name={RoutesNames.ORDERS_STACK}
         component={OrdersStack}
         options={{title: 'Mis Ordenes'}}
       />
       <Tab.Screen
-        name="FavoritesStack"
+        name={RoutesNames.FAVORITES_STACK}
         component={FavoritesStack}
         options={{title: 'Favoritos'}}
       />
       <Tab.Screen
-        name="ProfileStack"
+        name={RoutesNames.PROFILE_STACK}
         component={ProfileStack}
         options={{title: 'Cuenta'}}
       />
@@ -118,5 +93,28 @@ const selectedIcon = (
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  customTabBar: {
+    position: 'absolute',
+    bottom: 20,
+    height: 50,
+    paddingBottom: 0,
+    borderRadius: 10,
+    left: '5%',
+    right: '5%',
+    width: '90%',
+    borderTopWidth: 0,
+    shadowColor: ColorsApp.BLACK_COLOR,
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.34,
+    shadowRadius: 6.27,
+
+    elevation: 10,
+  },
+});
 
 export default BottomTabStack;

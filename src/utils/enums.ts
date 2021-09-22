@@ -5,12 +5,30 @@ export enum RoutesNames {
   NOT_ATHENTICATED_ROUTES = 'NotAthenticatedRoutes',
   LOGIN_SCREEN = 'LoginScreen',
   REGISTER_SCREEN = 'RegisterScreen',
+
+  ATHENTICATED_ROUTES = 'AthenticatedRoutes',
+  BOTTOM_TAB_STACK = 'BottomTabStack',
+
+  EXPLORE_STACK = 'ExploreStack',
+  EXPLORE_SCREEN = 'ExploreScreen',
+  RESTAURANTS_SCREEN = 'RestaurantsScreen',
+
+  ORDERS_STACK = 'OrdersStack',
+  MY_ORDERS_SCREEN = 'MyOrdersScreen',
+
+  FAVORITES_STACK = 'FavoritesStack',
+  FAVORITES_SCREEN = 'FavoritesScreen',
+
+  PROFILE_STACK = 'ProfileStack',
+  PROFILE_SCREEN = 'ProfileScreen',
 }
 
 export enum ColorsApp {
   PRIMARY_COLOR = '#E70D32',
   PRIMARY_OPACITY_COLOR = 'rgba(231,13,50,0.09)',
   WHITE_COLOR = '#FFFFFF',
+  BLACK_COLOR = '#000000',
+  GRAY_COLOR = '#C7C7C7',
 }
 
 export enum DimensionsDevice {

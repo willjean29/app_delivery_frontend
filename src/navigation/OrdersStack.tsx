@@ -10,7 +10,10 @@ interface OrdersStackProps {}
 const OrdersStack: React.FC<OrdersStackProps> = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="OrdersScreen" component={MyOrdersScreen} />
+      <Stack.Screen
+        name={RoutesNames.MY_ORDERS_SCREEN}
+        component={MyOrdersScreen}
+      />
     </Stack.Navigator>
   );
 };

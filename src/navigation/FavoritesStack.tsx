@@ -10,7 +10,10 @@ interface FavoritesStackProps {}
 const FavoritesStack: React.FC<FavoritesStackProps> = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="FavoritesScreen" component={FavoritesScreen} />
+      <Stack.Screen
+        name={RoutesNames.FAVORITES_SCREEN}
+        component={FavoritesScreen}
+      />
     </Stack.Navigator>
   );
 };

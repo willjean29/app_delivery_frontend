@@ -10,7 +10,10 @@ interface ProfileStackProps {}
 const ProfileStack: React.FC<ProfileStackProps> = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+      <Stack.Screen
+        name={RoutesNames.PROFILE_SCREEN}
+        component={ProfileScreen}
+      />
     </Stack.Navigator>
   );
 };
