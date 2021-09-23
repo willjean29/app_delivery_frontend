@@ -5,11 +5,13 @@ import {
   StyleSheet,
   TextInput,
   KeyboardTypeOptions,
+  TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {ColorsApp} from 'utils/enums';
 interface CustomInputProps {
-  iconName: string;
+  iconName?: string;
+  iconNameRigth?: string;
   placeholder: string;
   autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters' | undefined;
   autoCorrect?: boolean;
@@ -18,10 +20,12 @@ interface CustomInputProps {
   value?: string;
   errorMessage?: string;
   onChangeText: (text: string) => void;
+  onPressIcon?: () => void;
 }
 
 const CustomInput: React.FC<CustomInputProps> = ({
   iconName,
+  iconNameRigth,
   placeholder,
   autoCapitalize = 'none',
   autoCorrect = false,
@@ -30,27 +34,47 @@ const CustomInput: React.FC<CustomInputProps> = ({
   value = '',
   errorMessage,
   onChangeText,
+  onPressIcon,
 }) => {
   return (
     <View style={styles.viewContainer}>
       <View style={styles.viewContainerInput}>
-        <Icon
-          name={iconName}
-          size={20}
-          color={ColorsApp.PRIMARY_COLOR}
-          style={styles.iconStyle}
-        />
+        {iconName && (
+          <Icon
+            name={iconName}
+            size={20}
+            color={ColorsApp.PRIMARY_COLOR}
+            style={styles.iconStyle}
+          />
+        )}
+
         <TextInput
           secureTextEntry={secureTextEntry}
           placeholder={placeholder}
           placeholderTextColor={ColorsApp.PRIMARY_COLOR}
-          style={styles.inputText}
+          style={{
+            ...styles.inputText,
+            paddingLeft: iconName ? 40 : 15,
+            paddingRight: iconNameRigth ? 40 : 15,
+          }}
           autoCapitalize={autoCapitalize}
           autoCorrect={autoCorrect}
           keyboardType={keyboardType}
           value={value}
           onChangeText={text => onChangeText(text)}
         />
+        {iconNameRigth && (
+          <TouchableOpacity
+            style={{...styles.iconStyle, ...styles.iconStyleRight}}
+            activeOpacity={0.7}
+            onPress={() => (onPressIcon ? onPressIcon() : null)}>
+            <Icon
+              name={iconNameRigth}
+              size={20}
+              color={ColorsApp.PRIMARY_COLOR}
+            />
+          </TouchableOpacity>
+        )}
       </View>
       {errorMessage && (
         <Text style={styles.txtErrorMessage}>{errorMessage}</Text>
@@ -74,13 +98,16 @@ const styles = StyleSheet.create({
     margin: 0,
     paddingHorizontal: 10,
   },
+  iconStyleRight: {
+    right: 0,
+  },
   inputText: {
     margin: 0,
     height: 35,
     backgroundColor: ColorsApp.PRIMARY_OPACITY_COLOR,
     borderRadius: 20,
     padding: 0,
-    paddingLeft: 40,
+    // paddingLeft: 40,
     // paddingVertical: 10,
     color: ColorsApp.PRIMARY_COLOR,
   },
