@@ -49,7 +49,7 @@ const RegisterForm: React.FC<RegisterFormProps> = () => {
   return (
     <View style={styles.viewContainer}>
       <CustomInput
-        placeHolder="Correo Electronico"
+        placeholder="Correo Electronico"
         iconName="markunread"
         keyboardType={'email-address'}
         value={form.values.email}
@@ -57,7 +57,7 @@ const RegisterForm: React.FC<RegisterFormProps> = () => {
         errorMessage={form.errors.email}
       />
       <CustomInput
-        placeHolder="Nombres"
+        placeholder="Nombres"
         iconName="person"
         autoCapitalize={'words'}
         value={form.values.name}
@@ -65,7 +65,7 @@ const RegisterForm: React.FC<RegisterFormProps> = () => {
         errorMessage={form.errors.name}
       />
       <CustomInput
-        placeHolder="Apellidos"
+        placeholder="Apellidos"
         iconName="person-outline"
         autoCapitalize={'words'}
         value={form.values.lastName}
@@ -73,7 +73,7 @@ const RegisterForm: React.FC<RegisterFormProps> = () => {
         errorMessage={form.errors.lastName}
       />
       <CustomInput
-        placeHolder="Telefono"
+        placeholder="Telefono"
         iconName="phone"
         keyboardType={'number-pad'}
         value={form.values.phone}
@@ -81,7 +81,7 @@ const RegisterForm: React.FC<RegisterFormProps> = () => {
         errorMessage={form.errors.phone}
       />
       <CustomInput
-        placeHolder="Contraseña"
+        placeholder="Contraseña"
         iconName="https"
         secureTextEntry={true}
         value={form.values.password}
@@ -89,7 +89,7 @@ const RegisterForm: React.FC<RegisterFormProps> = () => {
         errorMessage={form.errors.password}
       />
       <CustomInput
-        placeHolder="Confirmar Contraseña"
+        placeholder="Confirmar Contraseña"
         iconName="lock-outline"
         secureTextEntry={true}
         value={form.values.confirmPassword}

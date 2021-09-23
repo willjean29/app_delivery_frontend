@@ -118,7 +118,7 @@ const ExploreScreen: React.FC<ExploreScreenProps> = ({navigation}) => {
             <View style={{flex: 1, marginRight: 10}}>
               <CustomInput
                 iconName="search"
-                placeHolder="¿Qué quieres pedir?"
+                placeholder="¿Qué quieres pedir?"
                 keyboardType={'email-address'}
                 value={''}
                 onChangeText={txt => {

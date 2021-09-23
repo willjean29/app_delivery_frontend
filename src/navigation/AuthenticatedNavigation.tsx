@@ -11,7 +11,9 @@ import ProfileStack from 'navigation/ProfileStack';
 import BottomTabStack from 'navigation/BottomTabStack';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import UserDefault from 'assets/img/profile.jpg';
-import {ColorsApp} from 'utils/enums';
+import RegisterBusinessScreen from 'screens/Business/RegisterBusinessScreen';
+import {ColorsApp, RoutesNames} from 'utils/enums';
+import BusinessStack from 'navigation/BusinessStack';
 
 const Drawer = createDrawerNavigator();
 interface AuthenticatedNavigationProps {}
@@ -22,16 +24,26 @@ const AuthenticatedNavigation: React.FC<AuthenticatedNavigationProps> = () => {
       <Drawer.Navigator
         screenOptions={({route}) => ({
           headerShown: false,
+          sceneContainerStyle: {
+            backgroundColor: '#fff',
+          },
         })}
         drawerContent={props => <CustomDrawerContent {...props} />}>
-        <Drawer.Screen name="BottomTabStack" component={BottomTabStack} />
-        <Drawer.Screen name="ProfileStack" component={ProfileStack} />
+        <Drawer.Screen
+          name={RoutesNames.BOTTOM_TAB_STACK}
+          component={BottomTabStack}
+        />
+        <Drawer.Screen
+          name={RoutesNames.BUSINESS_STACK}
+          component={BusinessStack}
+        />
       </Drawer.Navigator>
     </NavigationContainer>
   );
 };
 
 const CustomDrawerContent = (props: DrawerContentComponentProps) => {
+  const {navigation} = props;
   return (
     <View style={{flex: 1}}>
       <DrawerContentScrollView {...props}>
@@ -40,7 +52,7 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
           icon={({focused, size, color}) => (
             <Icon name="home" color={color} size={size} />
           )}
-          onPress={() => console.log('press')}
+          onPress={() => navigation.navigate(RoutesNames.BOTTOM_TAB_STACK)}
           activeTintColor={ColorsApp.WHITE_COLOR}
           activeBackgroundColor={ColorsApp.PRIMARY_COLOR}
           focused={true}
@@ -95,7 +107,11 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
           icon={({focused, size, color}) => (
             <Icon name="store" color={color} size={size} />
           )}
-          onPress={() => console.log('press')}
+          onPress={() =>
+            navigation.navigate(RoutesNames.BUSINESS_STACK, {
+              screen: RoutesNames.REGISTER_BUSINESS_SCREEN,
+            })
+          }
         />
         <DrawerItem
           label="Cerrar Sesión "

@@ -10,19 +10,19 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import {ColorsApp} from 'utils/enums';
 interface CustomInputProps {
   iconName: string;
-  placeHolder: string;
+  placeholder: string;
   autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters' | undefined;
   autoCorrect?: boolean;
   keyboardType?: KeyboardTypeOptions;
   secureTextEntry?: boolean;
-  value: string;
+  value?: string;
   errorMessage?: string;
   onChangeText: (text: string) => void;
 }
 
 const CustomInput: React.FC<CustomInputProps> = ({
   iconName,
-  placeHolder,
+  placeholder,
   autoCapitalize = 'none',
   autoCorrect = false,
   keyboardType = 'default',
@@ -42,7 +42,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
         />
         <TextInput
           secureTextEntry={secureTextEntry}
-          placeholder={placeHolder}
+          placeholder={placeholder}
           placeholderTextColor={ColorsApp.PRIMARY_COLOR}
           style={styles.inputText}
           autoCapitalize={autoCapitalize}

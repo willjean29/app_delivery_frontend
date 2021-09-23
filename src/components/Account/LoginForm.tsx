@@ -39,7 +39,7 @@ const LoginForm: React.FC<LoginFormProps> = () => {
     <View style={styles.viewContainer}>
       <CustomInput
         iconName="markunread"
-        placeHolder="Correo Electrónico"
+        placeholder="Correo Electrónico"
         keyboardType={'email-address'}
         value={form.values.email}
         onChangeText={form.handleChange('email')}
@@ -47,7 +47,7 @@ const LoginForm: React.FC<LoginFormProps> = () => {
       />
       <CustomInput
         iconName="https"
-        placeHolder="Contraseña"
+        placeholder="Contraseña"
         secureTextEntry={true}
         value={form.values.password}
         onChangeText={form.handleChange('password')}

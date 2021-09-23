@@ -21,6 +21,9 @@ export enum RoutesNames {
 
   PROFILE_STACK = 'ProfileStack',
   PROFILE_SCREEN = 'ProfileScreen',
+
+  BUSINESS_STACK = 'BusinessStack',
+  REGISTER_BUSINESS_SCREEN = 'RegisterBusinessScreen',
 }
 
 export enum ColorsApp {
