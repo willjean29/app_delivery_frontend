@@ -7,7 +7,6 @@ import RegisterBusinessForm from 'components/Business/RegisterBusinessForm';
 interface RegisterBusinessScreenProps {}
 
 const RegisterBusinessScreen: React.FC<RegisterBusinessScreenProps> = () => {
-  console.log('register business');
   return (
     <KeyboardAwareScrollView>
       <View style={{flex: 1}}>

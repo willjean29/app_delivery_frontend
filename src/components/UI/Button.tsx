@@ -8,7 +8,6 @@ interface ButtonProps {
 }
 
 const Button: React.FC<ButtonProps> = ({title, onPress}) => {
-  console.log('button');
   return (
     <TouchableOpacity
       activeOpacity={0.6}
