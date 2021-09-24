@@ -11,6 +11,7 @@ import Modal from 'components/UI/Modal';
 import {ColorsApp, PermissionsApp} from 'utils/enums';
 import {useDispatch} from 'react-redux';
 import {askPermissions} from 'store/permissions/permissions.actions';
+import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 const categories = [
   {
     id: 1,
@@ -149,10 +150,23 @@ const RegisterBusinessForm: React.FC<RegisterBusinessFormProps> = () => {
           iconNameRigth="location-on"
           onPressIcon={() => {
             request(PermissionsApp.LOCATION);
+            setShowModal(true);
           }}
         />
         <Button title="Registrar" onPress={() => form.handleSubmit()} />
       </View>
+      <Modal isVisible={showModal} setIsVisible={setShowModal}>
+        <MapView
+          initialRegion={{
+            latitude: 37.78825,
+            longitude: -122.4324,
+            latitudeDelta: 0.0422,
+            longitudeDelta: 0.0421,
+          }}
+          provider={PROVIDER_GOOGLE}
+          style={{height: 400}}
+        />
+      </Modal>
     </View>
   );
 };
