@@ -32,6 +32,7 @@ export enum ColorsApp {
   WHITE_COLOR = '#FFFFFF',
   BLACK_COLOR = '#000000',
   GRAY_COLOR = '#C7C7C7',
+  BACKGROUND_MODAL_COLOR = 'rgba(0,0,0,0.4)',
 }
 
 export enum DimensionsDevice {

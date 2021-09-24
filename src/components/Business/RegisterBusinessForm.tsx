@@ -6,7 +6,8 @@ import SelectDropdown from 'react-native-select-dropdown';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Alert, TouchableOpacity} from 'react-native';
+import Modal from 'components/UI/Modal';
 import {ColorsApp} from 'utils/enums';
 
 const categories = [
@@ -35,6 +36,7 @@ const categories = [
 interface RegisterBusinessFormProps {}
 
 const RegisterBusinessForm: React.FC<RegisterBusinessFormProps> = () => {
+  const [showModal, setShowModal] = useState(false);
   const form = useFormik({
     initialValues: {
       name: '',
@@ -140,9 +142,19 @@ const RegisterBusinessForm: React.FC<RegisterBusinessFormProps> = () => {
           errorMessage={form.errors.direction}
           onChangeText={form.handleChange('direction')}
           iconNameRigth="location-on"
+          onPressIcon={() => {
+            setShowModal(true);
+          }}
         />
         <Button title="Registrar" onPress={() => form.handleSubmit()} />
       </View>
+      <Modal isVisible={showModal} setIsVisible={setShowModal}>
+        <View>
+          <Text>Hola</Text>
+          <Text>Mundo</Text>
+          <Text>raaa</Text>
+        </View>
+      </Modal>
     </View>
   );
 };
