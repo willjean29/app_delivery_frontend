@@ -1,15 +1,16 @@
 import Button from 'components/UI/Button';
 import CustomInput from 'components/UI/CustomInput';
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {useFocusEffect} from '@react-navigation/native';
 import SelectDropdown from 'react-native-select-dropdown';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
-import {View, Text, StyleSheet, Alert, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import Modal from 'components/UI/Modal';
-import {ColorsApp} from 'utils/enums';
-
+import {ColorsApp, PermissionsApp} from 'utils/enums';
+import {useDispatch} from 'react-redux';
+import {askPermissions} from 'store/permissions/permissions.actions';
 const categories = [
   {
     id: 1,
@@ -37,6 +38,9 @@ interface RegisterBusinessFormProps {}
 
 const RegisterBusinessForm: React.FC<RegisterBusinessFormProps> = () => {
   const [showModal, setShowModal] = useState(false);
+  const dispatch = useDispatch();
+  const request = (permission: PermissionsApp) =>
+    dispatch(askPermissions(permission));
   const form = useFormik({
     initialValues: {
       name: '',
@@ -70,6 +74,7 @@ const RegisterBusinessForm: React.FC<RegisterBusinessFormProps> = () => {
       form.handleReset(form.initialValues);
     }, []),
   );
+
   return (
     <View style={styles.viewContainer}>
       <View style={styles.viewContainerForm}>
@@ -143,18 +148,11 @@ const RegisterBusinessForm: React.FC<RegisterBusinessFormProps> = () => {
           onChangeText={form.handleChange('direction')}
           iconNameRigth="location-on"
           onPressIcon={() => {
-            setShowModal(true);
+            request(PermissionsApp.LOCATION);
           }}
         />
         <Button title="Registrar" onPress={() => form.handleSubmit()} />
       </View>
-      <Modal isVisible={showModal} setIsVisible={setShowModal}>
-        <View>
-          <Text>Hola</Text>
-          <Text>Mundo</Text>
-          <Text>raaa</Text>
-        </View>
-      </Modal>
     </View>
   );
 };

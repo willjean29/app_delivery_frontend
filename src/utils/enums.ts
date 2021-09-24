@@ -46,6 +46,12 @@ export enum StatusUser {
   NOT_ATHENTICATED = 'not-authenticated',
 }
 
+export enum PermissionsApp {
+  LOCATION = 'locationStatus',
+  CAMERA = 'cameraStatus',
+  GALERY = 'galeryStatus',
+}
+
 const nameIcons = [
   '360',
   '10k',
