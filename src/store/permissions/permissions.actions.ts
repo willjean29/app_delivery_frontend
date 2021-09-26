@@ -5,6 +5,7 @@ import {
   request,
   PermissionStatus,
   Permission,
+  openSettings,
   PERMISSIONS,
 } from 'react-native-permissions';
 
@@ -49,6 +50,9 @@ export const askPermissions =
           permissionsStatus = isIphone
             ? await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE)
             : await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
+        }
+        if (permissionsStatus === 'blocked') {
+          openSettings();
         }
         dispatch({
           type: PERMISSIONS_CHECK_PERMISSION,

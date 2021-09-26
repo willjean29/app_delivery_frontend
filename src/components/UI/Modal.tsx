@@ -21,30 +21,35 @@ const Modal: React.FC<ModalProps> = ({children, isVisible, setIsVisible}) => {
       <TouchableOpacity
         activeOpacity={1}
         onPress={() => setIsVisible(false)}
-        style={{
-          flex: 1,
-          backgroundColor: ColorsApp.BACKGROUND_MODAL_COLOR,
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
+        style={styles.containerMdal}>
         {/* modal content */}
         <TouchableOpacity
           activeOpacity={1}
           onPress={() => null}
-          style={{
-            width: '90%',
-            height: 'auto',
-            padding: 10,
-            borderRadius: 10,
-            backgroundColor: ColorsApp.WHITE_COLOR,
-            borderColor: ColorsApp.PRIMARY_COLOR,
-            borderWidth: 1,
-          }}>
+          style={styles.containerContentModal}>
           {children}
         </TouchableOpacity>
       </TouchableOpacity>
     </Overlay>
   );
 };
+
+const styles = StyleSheet.create({
+  containerMdal: {
+    flex: 1,
+    backgroundColor: ColorsApp.BACKGROUND_MODAL_COLOR,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  containerContentModal: {
+    width: '90%',
+    height: 'auto',
+    padding: 10,
+    borderRadius: 10,
+    backgroundColor: ColorsApp.WHITE_COLOR,
+    borderColor: ColorsApp.PRIMARY_COLOR,
+    borderWidth: 1,
+  },
+});
 
 export default Modal;

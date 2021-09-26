@@ -52,6 +52,12 @@ export enum PermissionsApp {
   GALERY = 'galeryStatus',
 }
 
+export enum AspectMaps {
+  ASPECT_RATIO = width / height,
+  LATITUDE_DELTA = 0.04,
+  LONGITUDE_DELTA = AspectMaps.LATITUDE_DELTA * AspectMaps.ASPECT_RATIO,
+}
+
 const nameIcons = [
   '360',
   '10k',

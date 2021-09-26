@@ -1,14 +1,14 @@
 import React from 'react';
 import {View, Text, StyleSheet, ImageBackground, TextInput} from 'react-native';
 import {KeyboardAwareScrollView} from '@codler/react-native-keyboard-aware-scroll-view';
-import {ColorsApp} from 'utils/enums';
+import {ColorsApp, DimensionsDevice} from 'utils/enums';
 import RegisterBusinessForm from 'components/Business/RegisterBusinessForm';
 
 interface RegisterBusinessScreenProps {}
 
 const RegisterBusinessScreen: React.FC<RegisterBusinessScreenProps> = () => {
   return (
-    <KeyboardAwareScrollView>
+    <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
       <View style={{flex: 1}}>
         {/* img background */}
         <ImageBackground
@@ -34,7 +34,7 @@ const RegisterBusinessScreen: React.FC<RegisterBusinessScreenProps> = () => {
 const styles = StyleSheet.create({
   imgBackgroud: {
     width: '100%',
-    height: 250,
+    height: DimensionsDevice.HEIGHT_DEVICE * 0.3,
   },
   viewContainerTitle: {
     flex: 1,

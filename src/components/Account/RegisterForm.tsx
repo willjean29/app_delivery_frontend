@@ -96,7 +96,7 @@ const RegisterForm: React.FC<RegisterFormProps> = () => {
         onChangeText={form.handleChange('confirmPassword')}
         errorMessage={form.errors.confirmPassword}
       />
-      <Button title="Registrarse" onPress={form.handleSubmit} />
+      <Button title="Registrarse" uppercase onPress={form.handleSubmit} />
       <OptionMessageAccount
         title={'Inicia Sesión'}
         message={'Si ya tienes cuenta'}

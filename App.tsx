@@ -13,9 +13,9 @@ interface AppProps {}
 const App: React.FC<AppProps> = () => {
   return (
     <Provider store={store}>
-      {/* <NotAuthenticatedNavigation /> */}
       <AppContent>
         <>
+          {/* <NotAuthenticatedNavigation /> */}
           <AuthenticatedNavigation />
           <FlashMessage position="top" />
         </>

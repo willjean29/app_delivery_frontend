@@ -7,11 +7,10 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import {View, Text, StyleSheet} from 'react-native';
-import Modal from 'components/UI/Modal';
 import {ColorsApp, PermissionsApp} from 'utils/enums';
 import {useDispatch} from 'react-redux';
 import {askPermissions} from 'store/permissions/permissions.actions';
-import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
+import ModalSelectUbication from 'components/Business/ModalSelectUbication';
 const categories = [
   {
     id: 1,
@@ -153,20 +152,13 @@ const RegisterBusinessForm: React.FC<RegisterBusinessFormProps> = () => {
             setShowModal(true);
           }}
         />
-        <Button title="Registrar" onPress={() => form.handleSubmit()} />
-      </View>
-      <Modal isVisible={showModal} setIsVisible={setShowModal}>
-        <MapView
-          initialRegion={{
-            latitude: 37.78825,
-            longitude: -122.4324,
-            latitudeDelta: 0.0422,
-            longitudeDelta: 0.0421,
-          }}
-          provider={PROVIDER_GOOGLE}
-          style={{height: 400}}
+        <Button
+          title="Registrar"
+          uppercase
+          onPress={() => form.handleSubmit()}
         />
-      </Modal>
+      </View>
+      <ModalSelectUbication isVisible={showModal} setIsVisible={setShowModal} />
     </View>
   );
 };
@@ -176,10 +168,10 @@ const styles = StyleSheet.create({
   viewContainerForm: {
     borderRadius: 20,
     top: -20,
-    backgroundColor: '#fff',
+    backgroundColor: ColorsApp.WHITE_COLOR,
     padding: 15,
     marginHorizontal: 15,
-    shadowColor: '#000',
+    shadowColor: ColorsApp.BLACK_COLOR,
     shadowOffset: {
       width: 0,
       height: 3,

@@ -53,7 +53,7 @@ const LoginForm: React.FC<LoginFormProps> = () => {
         onChangeText={form.handleChange('password')}
         errorMessage={form.errors.password}
       />
-      <Button title="Ingresar" onPress={form.handleSubmit} />
+      <Button title="Ingresar" uppercase onPress={form.handleSubmit} />
       <OptionMessageAccount
         title={'Registrate'}
         message={'¿Si no tienes cuenta?'}
