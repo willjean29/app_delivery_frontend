@@ -8,9 +8,11 @@ const api = axios.create({
 
 api.interceptors.request.use(async config => {
   const token = await AsyncStorage.getItem('token');
+  const refreshToken = await AsyncStorage.getItem('refreshToken');
   console.log({token});
   if (token) {
     config.headers['token'] = token;
+    config.headers['refreshToken'] = refreshToken;
   }
   return config;
 });

@@ -36,6 +36,8 @@ export const userChecking =
         type: USER_SIGNOUT,
         payload: null,
       });
+      await AsyncStorage.removeItem('token');
+      await AsyncStorage.removeItem('refreshToken');
     }
   };
 export const userSignin =
@@ -115,7 +117,11 @@ export const userSignout =
         messageModal: 'Cerrando Sesión',
       },
     });
+
     try {
+      const refreshToken = await AsyncStorage.getItem('refreshToken');
+      const response = await api.post('/auth/signout');
+      console.log(response.data);
       dispatch({
         type: USER_SIGNOUT,
         payload: null,
