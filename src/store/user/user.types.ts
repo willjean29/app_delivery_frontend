@@ -1,8 +1,14 @@
 import {IUser} from 'store/user/interfaces/user.interface';
 
+export const USER_CHECKING = 'USER_CHECKING';
 export const USER_SIGNIN = 'USER_SIGIN';
 export const USER_SIGNUP = 'USER_SIGNUP';
 export const USER_SIGNOUT = 'USER_SINGOUT';
+
+export type UserChecking = {
+  type: typeof USER_CHECKING;
+  payload: IUser;
+};
 
 export type UserSignIn = {
   type: typeof USER_SIGNIN;
@@ -19,4 +25,8 @@ export type UserSignOut = {
   payload: null;
 };
 
-export type UserDispathTypes = UserSignIn | UserSignUp | UserSignOut;
+export type UserDispathTypes =
+  | UserChecking
+  | UserSignIn
+  | UserSignUp
+  | UserSignOut;

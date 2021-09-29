@@ -1,15 +1,38 @@
 import React from 'react';
-import {View, Text, StyleSheet, ImageBackground, TextInput} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ImageBackground,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
 import {KeyboardAwareScrollView} from '@codler/react-native-keyboard-aware-scroll-view';
 import {ColorsApp, DimensionsDevice} from 'utils/enums';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import RegisterBusinessForm from 'components/Business/RegisterBusinessForm';
-
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useNavigation} from '@react-navigation/native';
 interface RegisterBusinessScreenProps {}
 
 const RegisterBusinessScreen: React.FC<RegisterBusinessScreenProps> = () => {
+  const {top} = useSafeAreaInsets();
+  const navigation = useNavigation();
   return (
     <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
       <View style={{flex: 1}}>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          onPress={() => navigation.goBack()}
+          style={{
+            position: 'absolute',
+            top: top,
+            left: 10,
+            zIndex: 9999,
+            // backgroundColor: 'red',
+          }}>
+          <Icon name="arrow-back" size={28} color={'#fff'} />
+        </TouchableOpacity>
         {/* img background */}
         <ImageBackground
           source={{

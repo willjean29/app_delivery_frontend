@@ -1,5 +1,6 @@
 import {IUserState} from 'store/user/interfaces/userState.interface';
 import {
+  USER_CHECKING,
   USER_SIGNIN,
   USER_SIGNUP,
   USER_SIGNOUT,
@@ -18,6 +19,7 @@ const userReducer = (
   action: UserDispathTypes,
 ) => {
   switch (action.type) {
+    case USER_CHECKING:
     case USER_SIGNIN:
     case USER_SIGNUP:
       return {
