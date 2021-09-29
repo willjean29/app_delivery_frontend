@@ -9,24 +9,35 @@ import {
 import {ColorsApp} from 'utils/enums';
 
 interface ModalProps {
+  children: React.ReactNode;
+  type?: 'content' | 'message';
+  closePress?: boolean;
   isVisible: boolean;
   setIsVisible: React.Dispatch<React.SetStateAction<boolean>>;
-  children: React.ReactNode;
 }
 
-const Modal: React.FC<ModalProps> = ({children, isVisible, setIsVisible}) => {
+const Modal: React.FC<ModalProps> = ({
+  children,
+  isVisible,
+  closePress = true,
+  type = 'content',
+  setIsVisible,
+}) => {
   return (
     <Overlay animationType="slide" visible={isVisible} transparent={true}>
       {/* background */}
       <TouchableOpacity
         activeOpacity={1}
-        onPress={() => setIsVisible(false)}
+        onPress={() => (closePress ? setIsVisible(false) : null)}
         style={styles.containerMdal}>
         {/* modal content */}
         <TouchableOpacity
           activeOpacity={1}
           onPress={() => null}
-          style={styles.containerContentModal}>
+          style={{
+            ...styles.containerContentModal,
+            width: type === 'content' ? '90%' : '55%',
+          }}>
           {children}
         </TouchableOpacity>
       </TouchableOpacity>
@@ -42,7 +53,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   containerContentModal: {
-    width: '90%',
+    // width: '90%',
     height: 'auto',
     padding: 10,
     borderRadius: 10,

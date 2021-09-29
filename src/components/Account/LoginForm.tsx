@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {useFormik} from 'formik';
@@ -7,6 +7,7 @@ import * as Yup from 'yup';
 import OptionMessageAccount from 'components/Account/OptionMessageAccount';
 import Button from 'components/UI/Button';
 import CustomInput from 'components/UI/CustomInput';
+import ModalLoading from 'components/UI/ModalLoading';
 import {userSigin} from 'store/user/user.actions';
 // import utils
 import {DimensionsDevice, RoutesNames} from 'utils/enums';
@@ -16,6 +17,7 @@ import {UserSigninDto} from 'store/user/dtos/user.dto';
 interface LoginFormProps {}
 
 const LoginForm: React.FC<LoginFormProps> = () => {
+  const [showModal, setShowModal] = useState(true);
   const dispatch = useDispatch();
   const signIn = (userDto: UserSigninDto) => dispatch(userSigin(userDto));
   const {user} = useSelector((state: RootStore) => state.user);
@@ -59,6 +61,7 @@ const LoginForm: React.FC<LoginFormProps> = () => {
         message={'¿Si no tienes cuenta?'}
         routeName={RoutesNames.REGISTER_SCREEN}
       />
+      <ModalLoading isVisible={showModal} setIsVisible={setShowModal} />
     </View>
   );
 };
