@@ -24,7 +24,7 @@ const Modal: React.FC<ModalProps> = ({
   setIsVisible,
 }) => {
   return (
-    <Overlay animationType="slide" visible={isVisible} transparent={true}>
+    <Overlay animationType="fade" visible={isVisible} transparent={true}>
       {/* background */}
       <TouchableOpacity
         activeOpacity={1}
@@ -38,7 +38,7 @@ const Modal: React.FC<ModalProps> = ({
           onPress={() => null}
           style={{
             ...styles.containerContentModal,
-            width: type === 'content' ? '90%' : '55%',
+            width: type === 'content' ? '90%' : '60%',
           }}>
           {children}
         </TouchableOpacity>

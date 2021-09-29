@@ -43,10 +43,10 @@ const ModalSelectUbication: React.FC<ModalSelectUbicationProps> = ({
               draggable
             />
           </MapView>
-          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <View style={{...GlobalStyles.containerRowCenter}}>
             <Button
               title="Guardar Ubicacion"
-              btnStyle={styles.btnSelect}
+              btnStyle={GlobalStyles.btnSelect}
               onPress={() => {
                 console.log({selectLocation});
               }}
@@ -56,8 +56,8 @@ const ModalSelectUbication: React.FC<ModalSelectUbicationProps> = ({
               onPress={() => {
                 setIsVisible(false);
               }}
-              btnStyle={{...styles.btnSelect, ...styles.btnCancel}}
-              txtStyle={styles.txtBtnCancel}
+              btnStyle={{...GlobalStyles.btnSelect, ...GlobalStyles.btnCancel}}
+              txtStyle={GlobalStyles.txtBtnCancel}
             />
           </View>
         </>
@@ -73,22 +73,5 @@ const ModalSelectUbication: React.FC<ModalSelectUbicationProps> = ({
     </Modal>
   );
 };
-
-const styles = StyleSheet.create({
-  btnSelect: {
-    borderRadius: 10,
-    paddingHorizontal: 5,
-    flex: 1,
-    marginHorizontal: 5,
-    borderColor: ColorsApp.PRIMARY_COLOR,
-    borderWidth: 1,
-  },
-  btnCancel: {
-    backgroundColor: ColorsApp.PRIMARY_OPACITY_COLOR,
-  },
-  txtBtnCancel: {
-    color: ColorsApp.PRIMARY_COLOR,
-  },
-});
 
 export default ModalSelectUbication;

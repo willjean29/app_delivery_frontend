@@ -12,7 +12,7 @@ interface ModalLoadingProps {
 
 const ModalLoading: React.FC<ModalLoadingProps> = ({
   isVisible,
-  message = 'Iniciando Sesión',
+  message,
   setIsVisible,
 }) => {
   return (

@@ -105,3 +105,42 @@ export const userSignup =
       });
     }
   };
+
+export const userSignout =
+  () => async (dispatch: Dispatch<UserDispathTypes | UiDispatchTypes>) => {
+    dispatch({
+      type: UI_SHOW_MODAL,
+      payload: {
+        showModal: true,
+        messageModal: 'Cerrando Sesión',
+      },
+    });
+    try {
+      dispatch({
+        type: USER_SIGNOUT,
+        payload: null,
+      });
+      await AsyncStorage.removeItem('token');
+      await AsyncStorage.removeItem('refreshToken');
+      dispatch({
+        type: UI_CLOSE_MODAL,
+        payload: {
+          showModal: false,
+          messageModal: '',
+        },
+      });
+    } catch (error) {
+      console.log({error});
+      dispatch({
+        type: UI_CLOSE_MODAL,
+        payload: {
+          showModal: false,
+          messageModal: '',
+        },
+      });
+      dispatch({
+        type: USER_SIGNOUT,
+        payload: null,
+      });
+    }
+  };

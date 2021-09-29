@@ -2,33 +2,48 @@ import React from 'react';
 import {View, Text, StyleSheet, ActivityIndicator} from 'react-native';
 import {Plane, Chase} from 'react-native-animated-spinkit';
 import Modal from 'components/UI/Modal';
+import Button from 'components/UI/Button';
 import {ColorsApp} from 'utils/enums';
 import {GlobalStyles} from 'theme/globalStyles';
+import {useDispatch} from 'react-redux';
+import {userSignout} from 'store/user/user.actions';
 interface ModalSignOutProps {
   isVisible: boolean;
   setIsVisible?: React.Dispatch<React.SetStateAction<boolean>>;
-  message: string;
 }
 
 const ModalSignOut: React.FC<ModalSignOutProps> = ({
   isVisible,
-  message = 'Iniciando Sesión',
   setIsVisible,
 }) => {
+  const dispatch = useDispatch();
+  const signOut = () => dispatch(userSignout());
   return (
     <Modal
       isVisible={isVisible}
       setIsVisible={setIsVisible}
       closePress={false}
       type={'message'}>
-      <View style={{...GlobalStyles.containerCenter}}>
-        <Chase
-          color={ColorsApp.PRIMARY_COLOR}
-          size={50}
-          style={{marginVertical: 10}}
-        />
-        <Text>¿Quieres cerrar la sesión?</Text>
-        <Text style={styles.txtMessage}>{message}</Text>
+      <View>
+        <Text style={styles.txtMessage}>¿Quieres cerrar la sesión?</Text>
+        <View style={{...GlobalStyles.containerRowCenter}}>
+          <Button
+            title="Cancelar"
+            btnStyle={GlobalStyles.btnSelect}
+            onPress={() => {
+              setIsVisible && setIsVisible(false);
+            }}
+          />
+          <Button
+            title="Si, cerrar"
+            onPress={() => {
+              // setIsVisible && setIsVisible(false);
+              signOut();
+            }}
+            btnStyle={{...GlobalStyles.btnSelect, ...GlobalStyles.btnCancel}}
+            txtStyle={GlobalStyles.txtBtnCancel}
+          />
+        </View>
       </View>
     </Modal>
   );
@@ -36,10 +51,10 @@ const ModalSignOut: React.FC<ModalSignOutProps> = ({
 
 const styles = StyleSheet.create({
   txtMessage: {
-    color: ColorsApp.PRIMARY_COLOR,
+    fontSize: 18,
     textAlign: 'center',
-    fontSize: 16,
     marginVertical: 10,
+    fontWeight: 'bold',
   },
 });
 

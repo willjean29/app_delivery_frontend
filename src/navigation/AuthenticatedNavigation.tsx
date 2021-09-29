@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, Image} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {
@@ -14,6 +14,7 @@ import UserDefault from 'assets/img/profile.jpg';
 import RegisterBusinessScreen from 'screens/Business/RegisterBusinessScreen';
 import {ColorsApp, RoutesNames} from 'utils/enums';
 import BusinessStack from 'navigation/BusinessStack';
+import ModalSignOut from 'components/UI/ModalSignOut';
 
 const Drawer = createDrawerNavigator();
 interface AuthenticatedNavigationProps {}
@@ -44,6 +45,7 @@ const AuthenticatedNavigation: React.FC<AuthenticatedNavigationProps> = () => {
 
 const CustomDrawerContent = (props: DrawerContentComponentProps) => {
   const {navigation} = props;
+  const [showModal, setShowModal] = useState(false);
   return (
     <View style={{flex: 1}}>
       <DrawerContentScrollView {...props}>
@@ -118,7 +120,7 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
           icon={({focused, size, color}) => (
             <Icon name="logout" color={color} size={size} />
           )}
-          onPress={() => console.log('press')}
+          onPress={() => setShowModal(true)}
         />
       </DrawerContentScrollView>
       <View
@@ -142,6 +144,7 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
         </Text>
         <Text style={{fontSize: 12}}>willjean29@gmail.com</Text>
       </View>
+      <ModalSignOut isVisible={showModal} setIsVisible={setShowModal} />
     </View>
   );
 };
