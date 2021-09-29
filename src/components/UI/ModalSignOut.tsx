@@ -4,13 +4,13 @@ import {Plane, Chase} from 'react-native-animated-spinkit';
 import Modal from 'components/UI/Modal';
 import {ColorsApp} from 'utils/enums';
 import {GlobalStyles} from 'theme/globalStyles';
-interface ModalLoadingProps {
+interface ModalSignOutProps {
   isVisible: boolean;
   setIsVisible?: React.Dispatch<React.SetStateAction<boolean>>;
   message: string;
 }
 
-const ModalLoading: React.FC<ModalLoadingProps> = ({
+const ModalSignOut: React.FC<ModalSignOutProps> = ({
   isVisible,
   message = 'Iniciando Sesión',
   setIsVisible,
@@ -27,6 +27,7 @@ const ModalLoading: React.FC<ModalLoadingProps> = ({
           size={50}
           style={{marginVertical: 10}}
         />
+        <Text>¿Quieres cerrar la sesión?</Text>
         <Text style={styles.txtMessage}>{message}</Text>
       </View>
     </Modal>
@@ -42,4 +43,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ModalLoading;
+export default ModalSignOut;

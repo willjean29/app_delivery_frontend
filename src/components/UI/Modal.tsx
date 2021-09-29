@@ -13,7 +13,7 @@ interface ModalProps {
   type?: 'content' | 'message';
   closePress?: boolean;
   isVisible: boolean;
-  setIsVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsVisible?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -28,7 +28,9 @@ const Modal: React.FC<ModalProps> = ({
       {/* background */}
       <TouchableOpacity
         activeOpacity={1}
-        onPress={() => (closePress ? setIsVisible(false) : null)}
+        onPress={() =>
+          closePress ? setIsVisible && setIsVisible(false) : null
+        }
         style={styles.containerMdal}>
         {/* modal content */}
         <TouchableOpacity

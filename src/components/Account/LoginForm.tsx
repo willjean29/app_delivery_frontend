@@ -8,18 +8,19 @@ import OptionMessageAccount from 'components/Account/OptionMessageAccount';
 import Button from 'components/UI/Button';
 import CustomInput from 'components/UI/CustomInput';
 import ModalLoading from 'components/UI/ModalLoading';
-import {userSigin} from 'store/user/user.actions';
+import {userSignin} from 'store/user/user.actions';
 // import utils
 import {DimensionsDevice, RoutesNames} from 'utils/enums';
 import {RootStore} from 'store/store';
 import {UserSigninDto} from 'store/user/dtos/user.dto';
-
+import {uiShowModal} from 'store/ui/ui.actions';
 interface LoginFormProps {}
 
 const LoginForm: React.FC<LoginFormProps> = () => {
-  const [showModal, setShowModal] = useState(true);
+  // const [showModal, setShowModal] = useState(true);
   const dispatch = useDispatch();
-  const signIn = (userDto: UserSigninDto) => dispatch(userSigin(userDto));
+  const signIn = (userDto: UserSigninDto) => dispatch(userSignin(userDto));
+  const showModal = (message: string) => dispatch(uiShowModal(message));
   const {user} = useSelector((state: RootStore) => state.user);
   const form = useFormik({
     initialValues: {
@@ -34,6 +35,7 @@ const LoginForm: React.FC<LoginFormProps> = () => {
     }),
     onSubmit: formData => {
       signIn(formData);
+      // showModal('Iniciando Sesión');
     },
   });
 
@@ -61,7 +63,11 @@ const LoginForm: React.FC<LoginFormProps> = () => {
         message={'¿Si no tienes cuenta?'}
         routeName={RoutesNames.REGISTER_SCREEN}
       />
-      <ModalLoading isVisible={showModal} setIsVisible={setShowModal} />
+      {/* <ModalLoading
+        isVisible={showModal}
+        setIsVisible={setShowModal}
+        message="Iniciando Sesión"
+      /> */}
     </View>
   );
 };

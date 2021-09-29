@@ -12,6 +12,13 @@ import {UserSigninDto, UserSignupDto} from 'store/user/dtos/user.dto';
 import {ColorsApp, StatusUser} from 'utils/enums';
 import {IUserResponse} from 'store/user/interfaces/user.interface';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {uiShowModal, uiCloseModal} from 'store/ui/ui.actions';
+import {
+  UI_SHOW_MODAL,
+  UI_CLOSE_MODAL,
+  UI_SELECT_MENU,
+  UiDispatchTypes,
+} from 'store/ui/ui.types';
 
 export const userChecking =
   () => async (dispatch: Dispatch<UserDispathTypes>) => {
@@ -25,21 +32,22 @@ export const userChecking =
       await AsyncStorage.setItem('refreshToken', response.data.refreshToken);
     } catch (error: any) {
       console.log(error.response.data);
-      // showMessage({
-      //   message: 'Error : Obtener sesión',
-      //   description: error.response.data.msg || 'Error al obtener sesión',
-      //   type: 'danger',
-      //   icon: 'danger',
-      //   backgroundColor: ColorsApp.PRIMARY_COLOR,
-      // });
       dispatch({
         type: USER_SIGNOUT,
         payload: null,
       });
     }
   };
-export const userSigin =
-  (userDto: UserSigninDto) => async (dispatch: Dispatch<UserDispathTypes>) => {
+export const userSignin =
+  (userDto: UserSigninDto) =>
+  async (dispatch: Dispatch<UserDispathTypes | UiDispatchTypes>) => {
+    dispatch({
+      type: UI_SHOW_MODAL,
+      payload: {
+        showModal: true,
+        messageModal: 'Iniciando Sesión',
+      },
+    });
     try {
       const response = await api.post<IUserResponse>('/auth/signin', userDto);
       console.log(response.data);
@@ -49,8 +57,22 @@ export const userSigin =
       });
       await AsyncStorage.setItem('token', response.data.token);
       await AsyncStorage.setItem('refreshToken', response.data.refreshToken);
+      dispatch({
+        type: UI_CLOSE_MODAL,
+        payload: {
+          showModal: false,
+          messageModal: '',
+        },
+      });
     } catch (error: any) {
       console.log(error.response.data);
+      dispatch({
+        type: UI_CLOSE_MODAL,
+        payload: {
+          showModal: false,
+          messageModal: '',
+        },
+      });
       showMessage({
         message: 'Error : Inicio de Sesión',
         description: error.response.data.msg || 'Error al iniciar sesión',

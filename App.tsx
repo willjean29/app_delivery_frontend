@@ -1,12 +1,13 @@
 import 'react-native-gesture-handler';
 import React, {useEffect} from 'react';
-import {Provider, useDispatch} from 'react-redux';
+import {Provider, useDispatch, useSelector} from 'react-redux';
 import FlashMessage from 'react-native-flash-message';
-import {store} from 'store/store';
+import {RootStore, store} from 'store/store';
 import {checkPermissions} from 'store/permissions/permissions.actions';
 import SwitchNavigation from 'navigation/SwitchNavigation';
 import {AppState} from 'react-native';
 import {PermissionsApp} from 'utils/enums';
+import ModalLoading from 'components/UI/ModalLoading';
 interface AppProps {}
 
 const App: React.FC<AppProps> = () => {
@@ -28,9 +29,10 @@ interface AppContentProps {
 
 const AppContent: React.FC<AppContentProps> = ({children}) => {
   const dispatch = useDispatch();
-
+  const {showModal, messageModal} = useSelector((store: RootStore) => store.ui);
   const check = (permission: PermissionsApp) =>
     dispatch(checkPermissions(permission));
+
   useEffect(() => {
     check(PermissionsApp.LOCATION);
     AppState.addEventListener('change', state => {
@@ -39,7 +41,13 @@ const AppContent: React.FC<AppContentProps> = ({children}) => {
       }
     });
   }, []);
-  return <>{children}</>;
+
+  return (
+    <>
+      {children}
+      <ModalLoading isVisible={showModal} message={messageModal} />
+    </>
+  );
 };
 
 export default App;
