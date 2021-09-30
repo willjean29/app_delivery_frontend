@@ -28,16 +28,21 @@ export const userChecking =
         type: USER_CHECKING,
         payload: response.data.user,
       });
+      console.log({check: 'check dispatch'});
       await AsyncStorage.setItem('token', response.data.token);
       await AsyncStorage.setItem('refreshToken', response.data.refreshToken);
     } catch (error: any) {
-      console.log(error.response.data);
-      dispatch({
-        type: USER_SIGNOUT,
-        payload: null,
-      });
-      await AsyncStorage.removeItem('token');
-      await AsyncStorage.removeItem('refreshToken');
+      console.log('error chechking');
+      // console.log(error.response);
+      if (error.response.data.msg === 'Access-Token requerido') {
+        console.log(error.response);
+        dispatch({
+          type: USER_SIGNOUT,
+          payload: null,
+        });
+        await AsyncStorage.removeItem('token');
+        await AsyncStorage.removeItem('refreshToken');
+      }
     }
   };
 export const userSignin =

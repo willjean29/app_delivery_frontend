@@ -18,7 +18,6 @@ interface LoginScreenProps
   > {}
 
 const LoginScreen: React.FC<LoginScreenProps> = ({navigation}) => {
-  console.log('login screen');
   return (
     <KeyboardAwareScrollView>
       <View style={{flex: 1}}>

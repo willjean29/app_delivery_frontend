@@ -15,7 +15,7 @@ const OptionMessageAccount: React.FC<OptionMessageAccountProps> = ({
   routeName,
 }) => {
   const navigation = useNavigation();
-  console.log('message accout');
+
   return (
     <View style={styles.viewNewAccount}>
       <Text style={styles.txtNewAccount}>{message}</Text>

@@ -10,7 +10,6 @@ interface LeftTitleProps {
 
 const LeftTitle: React.FC<LeftTitleProps> = ({title}) => {
   const {top} = useSafeAreaInsets();
-  console.log('title left');
   return (
     <View style={{...GlobalStyles.containerCenter, ...styles.viewContainer}}>
       <Text
