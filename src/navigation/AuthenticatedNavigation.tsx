@@ -15,7 +15,8 @@ import RegisterBusinessScreen from 'screens/Business/RegisterBusinessScreen';
 import {ColorsApp, RoutesNames} from 'utils/enums';
 import BusinessStack from 'navigation/BusinessStack';
 import ModalSignOut from 'components/UI/ModalSignOut';
-
+import {useSelector} from 'react-redux';
+import {RootStore} from 'store/store';
 const Drawer = createDrawerNavigator();
 interface AuthenticatedNavigationProps {}
 
@@ -46,6 +47,7 @@ const AuthenticatedNavigation: React.FC<AuthenticatedNavigationProps> = () => {
 const CustomDrawerContent = (props: DrawerContentComponentProps) => {
   const {navigation} = props;
   const [showModal, setShowModal] = useState(false);
+  const {user} = useSelector((store: RootStore) => store.user);
   return (
     <View style={{flex: 1}}>
       <DrawerContentScrollView {...props}>
@@ -132,17 +134,28 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
           width: '90%',
         }}>
         <Image
-          source={UserDefault}
+          source={{
+            uri: 'https://cipamazonas.sacpro.pe/uploads/member_image/default.jpg',
+          }}
           style={{
             width: 60,
             height: 60,
             borderRadius: 100,
+            borderWidth: 0.5,
+            // border
+            borderColor: ColorsApp.GRAY_COLOR,
           }}
         />
-        <Text style={{fontWeight: 'bold', fontSize: 18, marginVertical: 5}}>
-          Jean Osco
+        <Text
+          style={{
+            fontWeight: 'bold',
+            fontSize: 18,
+            marginVertical: 5,
+            textTransform: 'capitalize',
+          }}>
+          {user?.name} {user?.lastName}
         </Text>
-        <Text style={{fontSize: 12}}>willjean29@gmail.com</Text>
+        <Text style={{fontSize: 12}}>{user?.email}</Text>
       </View>
       <ModalSignOut isVisible={showModal} setIsVisible={setShowModal} />
     </View>

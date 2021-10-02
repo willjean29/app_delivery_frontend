@@ -13,6 +13,8 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {KeyboardAwareScrollView} from '@codler/react-native-keyboard-aware-scroll-view';
 import {ColorsApp} from 'utils/enums';
 import {DrawerScreenProps} from '@react-navigation/drawer';
+import {useSelector} from 'react-redux';
+import {RootStore} from 'store/store';
 interface ExploreScreenProps extends DrawerScreenProps<any, any> {}
 
 const categoriesDemo = [
@@ -82,6 +84,7 @@ const restaurantsDemo = [
 
 const ExploreScreen: React.FC<ExploreScreenProps> = ({navigation}) => {
   const {top, bottom} = useSafeAreaInsets();
+  const {user} = useSelector((store: RootStore) => store.user);
   return (
     <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
       <View style={{flex: 1, top: top + 10, marginBottom: bottom + 100}}>
@@ -107,7 +110,7 @@ const ExploreScreen: React.FC<ExploreScreenProps> = ({navigation}) => {
               fontWeight: 'bold',
               marginHorizontal: 15,
             }}>
-            Bienvenid@ de vuelta Jean
+            Bienvenid@ de vuelta {user?.name}
           </Text>
           <View
             style={{

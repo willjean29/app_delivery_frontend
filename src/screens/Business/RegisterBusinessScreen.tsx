@@ -6,6 +6,8 @@ import {
   ImageBackground,
   TextInput,
   TouchableOpacity,
+  Platform,
+  StatusBar,
 } from 'react-native';
 import {KeyboardAwareScrollView} from '@codler/react-native-keyboard-aware-scroll-view';
 import {ColorsApp, DimensionsDevice} from 'utils/enums';
@@ -13,6 +15,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import RegisterBusinessForm from 'components/Business/RegisterBusinessForm';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
+import FadeBackgroundImage from 'components/UI/FadeBackgroundImage';
 interface RegisterBusinessScreenProps {}
 
 const RegisterBusinessScreen: React.FC<RegisterBusinessScreenProps> = () => {
@@ -26,18 +29,19 @@ const RegisterBusinessScreen: React.FC<RegisterBusinessScreenProps> = () => {
           onPress={() => navigation.goBack()}
           style={{
             position: 'absolute',
-            top: top,
-            left: 10,
+            top: top > 0 ? top : 20,
+            // left: 0,
+            right: 10,
             zIndex: 9999,
             // backgroundColor: 'red',
           }}>
-          <Icon name="arrow-back" size={28} color={'#fff'} />
+          <Icon name="close" size={28} color={'#fff'} />
         </TouchableOpacity>
         {/* img background */}
-        <ImageBackground
-          source={{
-            uri: 'https://socios.pedidosya.com/resource/PedidosYaResource/PedidosYaResource/images/bg_landing-min.jpg',
-          }}
+        <FadeBackgroundImage
+          uri={
+            'https://socios.pedidosya.com/resource/PedidosYaResource/PedidosYaResource/images/bg_landing-min.jpg'
+          }
           style={styles.imgBackgroud}>
           <View style={styles.viewContainerTitle}>
             <Text style={styles.txtTitle}>¡Registra tu Negocio!</Text>
@@ -46,7 +50,7 @@ const RegisterBusinessScreen: React.FC<RegisterBusinessScreenProps> = () => {
               con nosotros.
             </Text>
           </View>
-        </ImageBackground>
+        </FadeBackgroundImage>
         {/* register business form */}
         <RegisterBusinessForm />
       </View>
