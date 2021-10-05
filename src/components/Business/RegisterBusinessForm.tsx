@@ -1,6 +1,6 @@
 import Button from 'components/UI/Button';
 import CustomInput from 'components/UI/CustomInput';
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {useFocusEffect} from '@react-navigation/native';
 import SelectDropdown from 'react-native-select-dropdown';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -8,31 +8,12 @@ import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import {View, Text, StyleSheet} from 'react-native';
 import {ColorsApp, PermissionsApp} from 'utils/enums';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {askPermissions} from 'store/permissions/permissions.actions';
+import {categoriesLoad} from 'store/categories/categories.actions';
 import ModalSelectUbication from 'components/Business/ModalSelectUbication';
-const categories = [
-  {
-    id: 1,
-    name: 'Tienda',
-  },
-  {
-    id: 2,
-    name: 'Farmacia',
-  },
-  {
-    id: 3,
-    name: 'Restaurantes',
-  },
-  {
-    id: 4,
-    name: 'Bebidas',
-  },
-  {
-    id: 5,
-    name: 'Café',
-  },
-];
+import {RootStore} from 'store/store';
+import {Location} from 'utils/types';
 
 interface RegisterBusinessFormProps {}
 
@@ -41,33 +22,52 @@ const RegisterBusinessForm: React.FC<RegisterBusinessFormProps> = () => {
   const dispatch = useDispatch();
   const request = (permission: PermissionsApp) =>
     dispatch(askPermissions(permission));
+  const loadCategories = () => dispatch(categoriesLoad());
+  const {categories} = useSelector((store: RootStore) => store.categories);
+  const {user} = useSelector((store: RootStore) => store.user);
+  const [location, setLocation] = useState<Location>({} as Location);
   const form = useFormik({
     initialValues: {
       name: '',
       categorie: '',
-      userName: '',
-      userLastName: '',
+      userName: user?.name || '',
+      userLastName: user?.lastName || '',
       phone: '',
       email: '',
       direction: '',
     },
     validationSchema: Yup.object({
-      name: Yup.string().required('EL nombre del negocio es obligatorio'),
+      name: Yup.string().required('El nombre del negocio es obligatorio'),
       categorie: Yup.string().required('Elija una categoria'),
-      userName: Yup.string().required('EL nombre del encargado es obligatorio'),
+      userName: Yup.string().required('El nombre del encargado es obligatorio'),
       userLastName: Yup.string().required(
-        'EL apellido del encargado es obligatorio',
+        'El apellido del encargado es obligatorio',
       ),
       phone: Yup.string().required('EL telefono del negocio es obligatorio'),
       email: Yup.string()
-        .required('EL email es obligatorio')
+        .required('El email es obligatorio')
         .email('Ingrese un email válido'),
       direction: Yup.string().required('La dirección es obligatoria'),
     }),
     onSubmit: data => {
-      console.log({data});
+      console.log(
+        JSON.stringify(
+          {
+            data: {
+              ...data,
+              location,
+            },
+          },
+          null,
+          3,
+        ),
+      );
     },
   });
+
+  useEffect(() => {
+    loadCategories();
+  }, []);
 
   useFocusEffect(
     useCallback(() => {
@@ -83,12 +83,13 @@ const RegisterBusinessForm: React.FC<RegisterBusinessFormProps> = () => {
           placeholder="Nombre del local"
           value={form.values.name}
           errorMessage={form.errors.name}
+          autoCapitalize="words"
           onChangeText={form.handleChange('name')}
         />
         <SelectDropdown
           data={categories}
           onSelect={(item, index) => {
-            form.setFieldValue('name', item.name);
+            form.setFieldValue('categorie', item._id);
           }}
           defaultButtonText={'Seleccione una categoria'}
           buttonTextAfterSelection={(item, index) => item.name}
@@ -109,6 +110,7 @@ const RegisterBusinessForm: React.FC<RegisterBusinessFormProps> = () => {
             <Text
               style={{
                 color: ColorsApp.PRIMARY_COLOR,
+                textTransform: 'capitalize',
               }}>
               {item}
             </Text>
@@ -121,28 +123,33 @@ const RegisterBusinessForm: React.FC<RegisterBusinessFormProps> = () => {
           placeholder="Nombre"
           value={form.values.userName}
           errorMessage={form.errors.userName}
+          autoCapitalize={'words'}
           onChangeText={form.handleChange('userName')}
         />
         <CustomInput
           placeholder="Apellido"
           value={form.values.userLastName}
           errorMessage={form.errors.userLastName}
+          autoCapitalize={'words'}
           onChangeText={form.handleChange('userLastName')}
         />
         <CustomInput
           placeholder="Telefono de contacto"
           value={form.values.phone}
           errorMessage={form.errors.phone}
+          keyboardType={'numeric'}
           onChangeText={form.handleChange('phone')}
         />
         <CustomInput
           placeholder="Correo electrónico"
           value={form.values.email}
           errorMessage={form.errors.email}
+          keyboardType={'email-address'}
           onChangeText={form.handleChange('email')}
         />
         <CustomInput
           placeholder="Direccion del local"
+          editable={false}
           value={form.values.direction}
           errorMessage={form.errors.direction}
           onChangeText={form.handleChange('direction')}
@@ -158,7 +165,14 @@ const RegisterBusinessForm: React.FC<RegisterBusinessFormProps> = () => {
           onPress={() => form.handleSubmit()}
         />
       </View>
-      <ModalSelectUbication isVisible={showModal} setIsVisible={setShowModal} />
+      <ModalSelectUbication
+        handleDirection={(text, location) => {
+          form.setFieldValue('direction', text);
+          setLocation(location);
+        }}
+        isVisible={showModal}
+        setIsVisible={setShowModal}
+      />
     </View>
   );
 };
@@ -198,6 +212,7 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     fontSize: 14,
     color: ColorsApp.PRIMARY_COLOR,
+    textTransform: 'capitalize',
   },
   rowItem: {
     borderBottomColor: ColorsApp.PRIMARY_OPACITY_COLOR,

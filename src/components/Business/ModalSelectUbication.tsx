@@ -12,17 +12,24 @@ import useLocation from 'hooks/useLocation';
 import {ColorsApp, AspectMaps, DimensionsDevice} from 'utils/enums';
 import Button from 'components/UI/Button';
 import {GlobalStyles} from 'theme/globalStyles';
+import {getInfoCoordinates} from 'utils/methods';
+import {Location} from 'utils/types';
+
 interface ModalSelectUbicationProps {
+  handleDirection: (direction: string, location: Location) => void;
   isVisible: boolean;
   setIsVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const ModalSelectUbication: React.FC<ModalSelectUbicationProps> = ({
+  handleDirection,
   isVisible,
   setIsVisible,
 }) => {
   const {initialPosition, hasLocation, selectLocation, onChangeLocation} =
     useLocation();
+  // console.log(selectLocation);
+  // const {infoCoordinates, getInfoCoordinates} = useGeocdingReverse();
   return (
     <Modal isVisible={isVisible} setIsVisible={setIsVisible}>
       {hasLocation ? (
@@ -47,8 +54,11 @@ const ModalSelectUbication: React.FC<ModalSelectUbicationProps> = ({
             <Button
               title="Guardar Ubicacion"
               btnStyle={GlobalStyles.btnSelect}
-              onPress={() => {
+              onPress={async () => {
                 console.log({selectLocation});
+                const direction = await getInfoCoordinates(selectLocation);
+                handleDirection(direction, selectLocation);
+                setIsVisible(false);
               }}
             />
             <Button

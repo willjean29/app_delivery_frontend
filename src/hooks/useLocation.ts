@@ -3,10 +3,9 @@ import Geolocation from 'react-native-geolocation-service';
 import {Region} from 'react-native-maps';
 import {useSelector} from 'react-redux';
 import {RootStore} from 'store/store';
-export interface Location {
-  latitude: number;
-  longitude: number;
-}
+import {IGeocodingReverse, Result} from 'utils/interfaces';
+import {Location} from 'utils/types';
+import axios from 'axios';
 const useLocation = () => {
   const {locationStatus} = useSelector((store: RootStore) => store.permissions);
   const [hasLocation, setHasLocation] = useState(false);

@@ -19,6 +19,7 @@ interface CustomInputProps {
   secureTextEntry?: boolean;
   value?: string;
   errorMessage?: string;
+  editable?: boolean;
   onChangeText: (text: string) => void;
   onPressIcon?: () => void;
 }
@@ -33,6 +34,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
   secureTextEntry = false,
   value = '',
   errorMessage,
+  editable = true,
   onChangeText,
   onPressIcon,
 }) => {
@@ -61,6 +63,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
           autoCorrect={autoCorrect}
           keyboardType={keyboardType}
           value={value}
+          editable={editable}
           onChangeText={text => onChangeText(text)}
         />
         {iconNameRigth && (

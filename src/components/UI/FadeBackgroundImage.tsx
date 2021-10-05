@@ -43,7 +43,6 @@ const FadeBackgroundImage: React.FC<FadeBackgroundImageProps> = ({
       style={{
         ...styles.viewContainer,
         ...(style as any),
-        borderWidth: 2,
       }}>
       {isLoading && (
         <ActivityIndicator
