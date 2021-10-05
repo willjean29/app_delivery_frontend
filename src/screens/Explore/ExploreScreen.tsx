@@ -11,7 +11,7 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {KeyboardAwareScrollView} from '@codler/react-native-keyboard-aware-scroll-view';
-import {ColorsApp} from 'utils/enums';
+import {ColorsApp, RoutesNames} from 'utils/enums';
 import {DrawerScreenProps} from '@react-navigation/drawer';
 import {useSelector} from 'react-redux';
 import {RootStore} from 'store/store';
@@ -278,7 +278,8 @@ const ExploreScreen: React.FC<ExploreScreenProps> = ({navigation}) => {
               showsHorizontalScrollIndicator={false}
               keyExtractor={(item, index) => index.toString()}
               renderItem={({item}) => (
-                <View
+                <TouchableOpacity
+                  activeOpacity={0.8}
                   style={{
                     width: 240,
                     marginHorizontal: 10,
@@ -294,7 +295,12 @@ const ExploreScreen: React.FC<ExploreScreenProps> = ({navigation}) => {
                     shadowRadius: 6,
                     backgroundColor: '#fff',
                     elevation: 7,
-                  }}>
+                  }}
+                  onPress={() =>
+                    navigation.navigate(RoutesNames.BUSINESS_STACK, {
+                      screen: RoutesNames.BUSINESS_SCREEN,
+                    })
+                  }>
                   <View>
                     <Image
                       source={{uri: item.img}}
@@ -346,7 +352,7 @@ const ExploreScreen: React.FC<ExploreScreenProps> = ({navigation}) => {
                       </View>
                     </View>
                   </View>
-                </View>
+                </TouchableOpacity>
               )}
             />
             <Text
