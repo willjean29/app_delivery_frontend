@@ -1,3 +1,4 @@
+import {StackScreenProps} from '@react-navigation/stack';
 import Button from 'components/UI/Button';
 import FadeBackgroundImage from 'components/UI/FadeBackgroundImage';
 import FadeImage from 'components/UI/FadeImage';
@@ -14,7 +15,7 @@ import {
 } from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {ColorsApp, DimensionsDevice} from 'utils/enums';
+import {ColorsApp, DimensionsDevice, RoutesNames} from 'utils/enums';
 
 const data = [
   'Combos',
@@ -96,9 +97,9 @@ const cardInfo = [
     ],
   },
 ];
-interface BusinessScreenProps {}
+interface BusinessScreenProps extends StackScreenProps<any, any> {}
 
-const BusinessScreen: React.FC<BusinessScreenProps> = () => {
+const BusinessScreen: React.FC<BusinessScreenProps> = ({navigation}) => {
   const {top} = useSafeAreaInsets();
   return (
     <>
@@ -304,6 +305,11 @@ const BusinessScreen: React.FC<BusinessScreenProps> = () => {
         renderItem={({item}) => (
           <TouchableOpacity
             activeOpacity={0.8}
+            onPress={() => {
+              navigation.navigate(RoutesNames.BUSINESS_STACK, {
+                screen: RoutesNames.PRODUCT_SCREEN,
+              });
+            }}
             style={{
               flexDirection: 'row',
               // borderWidth: 1,
