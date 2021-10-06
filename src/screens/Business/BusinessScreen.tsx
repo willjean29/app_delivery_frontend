@@ -1,16 +1,107 @@
 import Button from 'components/UI/Button';
 import FadeBackgroundImage from 'components/UI/FadeBackgroundImage';
+import FadeImage from 'components/UI/FadeImage';
 import React from 'react';
-import {View, Text, StyleSheet, StatusBar} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  StatusBar,
+  FlatList,
+  SectionList,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {DimensionsDevice} from 'utils/enums';
+import {ColorsApp, DimensionsDevice} from 'utils/enums';
+
+const data = [
+  'Combos',
+  'Entradas',
+  'Postres',
+  'Bebidas',
+  'Tacos',
+  'Enchiladas',
+];
+
+const cardInfo = [
+  {
+    categorie: 'Combos',
+    data: [
+      {
+        name: 'Desayuno Criollo',
+        description:
+          'Juego natural de 500ml, sandwich de chicharrón, tamal de cerdo',
+        price: 31,
+      },
+      {
+        name: 'Desayuno Criollo',
+        description:
+          'Juego natural de 500ml, sandwich de chicharrón, tamal de cerdo',
+        price: 31,
+      },
+      {
+        name: 'Desayuno Criollo',
+        description:
+          'Juego natural de 500ml, sandwich de chicharrón, tamal de cerdo',
+        price: 31,
+      },
+    ],
+  },
+  {
+    categorie: 'Combos',
+    data: [
+      {
+        name: 'Desayuno Criollo',
+        description:
+          'Juego natural de 500ml, sandwich de chicharrón, tamal de cerdo',
+        price: 31,
+      },
+      {
+        name: 'Desayuno Criollo',
+        description:
+          'Juego natural de 500ml, sandwich de chicharrón, tamal de cerdo',
+        price: 31,
+      },
+      {
+        name: 'Desayuno Criollo',
+        description:
+          'Juego natural de 500ml, sandwich de chicharrón, tamal de cerdo',
+        price: 31,
+      },
+    ],
+  },
+  {
+    categorie: 'Combos',
+    data: [
+      {
+        name: 'Desayuno Criollo',
+        description:
+          'Juego natural de 500ml, sandwich de chicharrón, tamal de cerdo',
+        price: 31,
+      },
+      {
+        name: 'Desayuno Criollo',
+        description:
+          'Juego natural de 500ml, sandwich de chicharrón, tamal de cerdo',
+        price: 31,
+      },
+      {
+        name: 'Desayuno Criollo',
+        description:
+          'Juego natural de 500ml, sandwich de chicharrón, tamal de cerdo',
+        price: 31,
+      },
+    ],
+  },
+];
 interface BusinessScreenProps {}
 
 const BusinessScreen: React.FC<BusinessScreenProps> = () => {
   const {top} = useSafeAreaInsets();
   return (
-    <View>
+    <>
       <FadeBackgroundImage
         uri={
           'https://www.comedera.com/wp-content/uploads/2021/02/comidas-rapidas-1.jpg'
@@ -153,7 +244,128 @@ const BusinessScreen: React.FC<BusinessScreenProps> = () => {
           </View>
         </>
       </FadeBackgroundImage>
-    </View>
+      <View>
+        <FlatList
+          data={data}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({item}) => (
+            // <TouchableOpacity style={{borderWidth: 1}}>
+            //   <Text>holaa</Text>
+            // </TouchableOpacity>
+            <Button
+              title={item}
+              onPress={() => {}}
+              btnStyle={{
+                backgroundColor: ColorsApp.PRIMARY_OPACITY_COLOR,
+                // flex: 1,
+                borderColor: ColorsApp.PRIMARY_COLOR,
+                borderWidth: 1,
+                marginHorizontal: 10,
+                paddingHorizontal: 10,
+                paddingVertical: 5,
+              }}
+              txtStyle={{
+                color: ColorsApp.PRIMARY_COLOR,
+                fontSize: 12,
+              }}
+            />
+          )}
+          // contentContainerStyle={{borderWidth: 1}}
+        />
+      </View>
+      {/* <ScrollView keyboardShouldPersistTaps={'handled'}> */}
+      <SectionList
+        sections={cardInfo}
+        // data={cardInfo}
+        showsVerticalScrollIndicator={false}
+        stickySectionHeadersEnabled={false}
+        renderSectionHeader={({section}) => (
+          <View
+            style={
+              {
+                // borderWidth: 1,
+                // backgroundColor: 'rgba(255,255,255,0.8)',
+              }
+            }>
+            <Text
+              style={{
+                marginHorizontal: 15,
+                paddingVertical: 10,
+                fontWeight: 'bold',
+                fontSize: 16,
+              }}>
+              {section.categorie}
+            </Text>
+          </View>
+        )}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({item}) => (
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={{
+              flexDirection: 'row',
+              // borderWidth: 1,
+              justifyContent: 'space-between',
+              flex: 1,
+              marginHorizontal: 15,
+              marginBottom: 15,
+              borderRadius: 10,
+              shadowColor: ColorsApp.BLACK_COLOR,
+              shadowOffset: {
+                width: 0,
+                height: 3,
+              },
+              shadowOpacity: 0.29,
+              shadowRadius: 4.65,
+              backgroundColor: '#fff',
+              elevation: 7,
+            }}>
+            <View
+              style={{
+                // width: '60%',
+                flex: 1,
+                // borderWidth: 1,
+                paddingHorizontal: 10,
+                justifyContent: 'space-evenly',
+                borderRadius: 10,
+              }}>
+              <Text style={{fontWeight: '600'}}>{item.name}</Text>
+              <Text style={{fontSize: 12, color: 'gray'}}>
+                {item.description}
+              </Text>
+              <Text style={{fontWeight: '600'}}>S/. {item.price}</Text>
+            </View>
+            <View
+              style={{
+                // width: 250,
+                // borderWidth: 1,
+                borderRadius: 10,
+                paddingVertical: 10,
+                paddingHorizontal: 10,
+                alignItems: 'center',
+              }}>
+              <FadeImage
+                uri={
+                  'https://s3-viena-pro.s3.amazonaws.com/media/catalog/product/d/e/desayuno-criollo-viena.jpg'
+                }
+                style={{
+                  width: 100,
+                  height: 100,
+                  borderRadius: 10,
+                }}
+              />
+            </View>
+          </TouchableOpacity>
+        )}
+        contentContainerStyle={{
+          paddingBottom: 20,
+          // backgroundColor: ColorsApp.PRIMARY_OPACITY_COLOR,
+        }}
+      />
+      {/* </ScrollView> */}
+    </>
   );
 };
 
