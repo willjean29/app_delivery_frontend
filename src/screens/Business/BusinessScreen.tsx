@@ -371,6 +371,35 @@ const BusinessScreen: React.FC<BusinessScreenProps> = ({navigation}) => {
         }}
       />
       {/* </ScrollView> */}
+      <Button
+        title={'Ver mi pedido (5)'}
+        onPress={() => {
+          navigation.navigate(RoutesNames.BUSINESS_STACK, {
+            screen: RoutesNames.BUSINESS_SHOPPING_SCREEN,
+          });
+        }}
+        rightIcon={'shopping-cart'}
+        btnStyle={{
+          // borderWidth: 1,
+          paddingHorizontal: 10,
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          position: 'absolute',
+          width: '90%',
+          marginHorizontal: '5%',
+          bottom: 10,
+        }}
+        txtStyle={
+          {
+            // fontWeight: 'bold',
+          }
+        }
+        rightTxt={'S/. 85.70'}
+        txtRightStyle={{
+          fontWeight: '500',
+        }}
+      />
     </>
   );
 };

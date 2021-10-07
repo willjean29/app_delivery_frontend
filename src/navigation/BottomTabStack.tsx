@@ -53,6 +53,7 @@ const selectedIcon = (
   size: number,
   focused: boolean,
 ) => {
+  // console.log({size});
   let iconName: string = '';
   let title: string = '';
   switch (route.name) {

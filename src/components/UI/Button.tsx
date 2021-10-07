@@ -8,6 +8,7 @@ import {
   TextStyle,
   ViewStyle,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import {ColorsApp} from 'utils/enums';
 
 interface ButtonProps {
@@ -16,6 +17,9 @@ interface ButtonProps {
   onPress: Function;
   btnStyle?: StyleProp<ViewStyle>;
   txtStyle?: StyleProp<TextStyle>;
+  rightIcon?: string;
+  rightTxt?: string;
+  txtRightStyle?: StyleProp<TextStyle>;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -24,12 +28,16 @@ const Button: React.FC<ButtonProps> = ({
   onPress,
   btnStyle,
   txtStyle,
+  rightIcon,
+  rightTxt,
+  txtRightStyle,
 }) => {
   return (
     <TouchableOpacity
-      activeOpacity={0.6}
+      activeOpacity={0.7}
       style={{...styles.btnContainer, ...(btnStyle as any)}}
       onPress={() => onPress()}>
+      {rightIcon && <Icon name={rightIcon} color={'#fff'} size={20} />}
       <Text
         style={{
           ...styles.btnText,
@@ -38,6 +46,11 @@ const Button: React.FC<ButtonProps> = ({
         }}>
         {title}
       </Text>
+      {rightTxt && (
+        <Text style={{...styles.txtRight, ...(txtRightStyle as any)}}>
+          {rightTxt}
+        </Text>
+      )}
     </TouchableOpacity>
   );
 };
@@ -54,6 +67,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     // textTransform: 'uppercase',
     fontWeight: 'bold',
+  },
+  txtRight: {
+    color: ColorsApp.WHITE_COLOR,
   },
 });
 

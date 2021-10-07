@@ -8,17 +8,18 @@ import {
   TextInput,
   Platform,
 } from 'react-native';
-import {ColorsApp, DimensionsDevice} from 'utils/enums';
+import {ColorsApp, DimensionsDevice, RoutesNames} from 'utils/enums';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Button from 'components/UI/Button';
 import {KeyboardAwareScrollView} from '@codler/react-native-keyboard-aware-scroll-view';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
-interface ProductScreenProps {}
+import {StackScreenProps} from '@react-navigation/stack';
+interface ProductScreenProps extends StackScreenProps<any, any> {}
 
-const ProductScreen: React.FC<ProductScreenProps> = () => {
+const ProductScreen: React.FC<ProductScreenProps> = ({navigation}) => {
   const {top} = useSafeAreaInsets();
-  const navigation = useNavigation();
+
   return (
     <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
       <FadeImage
@@ -172,7 +173,7 @@ const ProductScreen: React.FC<ProductScreenProps> = () => {
       </View>
 
       <Button
-        title="Agregar al carrito"
+        title="Agregar a mi pedido S/. 31.00"
         onPress={() => {}}
         btnStyle={{marginVertical: 15, marginHorizontal: 15}}
       />
