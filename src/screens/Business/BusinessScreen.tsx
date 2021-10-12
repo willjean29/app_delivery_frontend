@@ -2,7 +2,7 @@ import {StackScreenProps} from '@react-navigation/stack';
 import Button from 'components/UI/Button';
 import FadeBackgroundImage from 'components/UI/FadeBackgroundImage';
 import FadeImage from 'components/UI/FadeImage';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   View,
   Text,
@@ -16,7 +16,9 @@ import {
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {ColorsApp, DimensionsDevice, RoutesNames} from 'utils/enums';
-
+import {useDispatch, useSelector} from 'react-redux';
+import {businessGetInfo} from 'store/business/business.actions';
+import {RootStore} from 'store/store';
 const data = [
   'Combos',
   'Entradas',
@@ -99,8 +101,16 @@ const cardInfo = [
 ];
 interface BusinessScreenProps extends StackScreenProps<any, any> {}
 
-const BusinessScreen: React.FC<BusinessScreenProps> = ({navigation}) => {
+const BusinessScreen: React.FC<BusinessScreenProps> = ({navigation, route}) => {
   const {top} = useSafeAreaInsets();
+  const id = route.params?.id as string;
+  const dispatch = useDispatch();
+  const businessLoadedInfo = (id: string) => dispatch(businessGetInfo(id));
+  const {business} = useSelector((store: RootStore) => store.business);
+  console.log({business});
+  useEffect(() => {
+    businessLoadedInfo(id);
+  }, []);
   return (
     <>
       <FadeBackgroundImage

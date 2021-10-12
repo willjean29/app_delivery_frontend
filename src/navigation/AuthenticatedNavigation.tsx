@@ -97,14 +97,22 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
           icon={({focused, size, color}) => (
             <Icon name="error" color={color} size={size} />
           )}
-          onPress={() => console.log('press')}
+          onPress={() =>
+            navigation.navigate(RoutesNames.BUSINESS_STACK, {
+              screen: RoutesNames.CREATE_PRODUCT_SCREEN,
+            })
+          }
         />
         <DrawerItem
           label="Registrar repartidor"
           icon={({focused, size, color}) => (
             <Icon name="two-wheeler" color={color} size={size} />
           )}
-          onPress={() => console.log('press')}
+          onPress={() =>
+            navigation.navigate(RoutesNames.BUSINESS_STACK, {
+              screen: RoutesNames.CREATE_CATEGORIE_SCREEN,
+            })
+          }
         />
         <DrawerItem
           label="Registrar tu negocio"

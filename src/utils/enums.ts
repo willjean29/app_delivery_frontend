@@ -27,6 +27,8 @@ export enum RoutesNames {
   BUSINESS_SCREEN = 'BusinessScreen',
   PRODUCT_SCREEN = 'ProductScreen',
   BUSINESS_SHOPPING_SCREEN = 'BusinessShoppingScreen',
+  CREATE_PRODUCT_SCREEN = 'CreateProductScreen',
+  CREATE_CATEGORIE_SCREEN = 'CreateCategorieScreen',
 }
 
 export enum ColorsApp {

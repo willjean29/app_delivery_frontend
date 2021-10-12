@@ -5,6 +5,8 @@ import RegisterBusinessScreen from 'screens/Business/RegisterBusinessScreen';
 import BusinessScreen from 'screens/Business/BusinessScreen';
 import ProductScreen from 'screens/Business/ProductScreen';
 import BusinessShoppingScreen from 'screens/Business/BusinessShoppingScreen';
+import CreateProductScreen from 'screens/Business/CreateProductScreen';
+import CreateCategorieScreen from 'screens/Business/CreateCategorie';
 
 const Stack = createStackNavigator();
 interface BusinessStackProps {}
@@ -31,6 +33,14 @@ const BusinessStack: React.FC<BusinessStackProps> = () => {
       <Stack.Screen
         name={RoutesNames.BUSINESS_SHOPPING_SCREEN}
         component={BusinessShoppingScreen}
+      />
+      <Stack.Screen
+        name={RoutesNames.CREATE_PRODUCT_SCREEN}
+        component={CreateProductScreen}
+      />
+      <Stack.Screen
+        name={RoutesNames.CREATE_CATEGORIE_SCREEN}
+        component={CreateCategorieScreen}
       />
     </Stack.Navigator>
   );
