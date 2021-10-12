@@ -22,35 +22,42 @@ const SliderCategories: React.FC<SliderCategoriesProps> = ({categories}) => {
       showsHorizontalScrollIndicator={false}
       keyExtractor={(item, index) => index.toString()}
       renderItem={({item}) => (
-        <TouchableOpacity
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginHorizontal: 10,
-            marginTop: 10,
-            marginBottom: 10,
-          }}>
-          <View
-            style={{
-              backgroundColor: ColorsApp.GRAY_COLOR,
-              borderRadius: 100,
-              padding: 10,
-            }}>
+        <TouchableOpacity style={styles.btnCategory}>
+          <View style={styles.viewConatinerImage}>
             <Image
               source={{
                 uri: 'https://cdn.iconscout.com/icon/free/png-256/fast-food-1851561-1569286.png',
               }}
-              style={{
-                width: 60,
-                height: 60,
-              }}
+              style={styles.imgCategory}
             />
           </View>
-          <Text style={{fontWeight: '500'}}>{item.name}</Text>
+          <Text style={styles.txtCategory}>{item.name}</Text>
         </TouchableOpacity>
       )}
     />
   );
 };
 
+const styles = StyleSheet.create({
+  btnCategory: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginHorizontal: 10,
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  viewConatinerImage: {
+    backgroundColor: ColorsApp.GRAY_COLOR,
+    borderRadius: 100,
+    padding: 10,
+  },
+  imgCategory: {
+    width: 50,
+    height: 50,
+  },
+  txtCategory: {
+    fontWeight: '500',
+    textTransform: 'capitalize',
+  },
+});
 export default SliderCategories;

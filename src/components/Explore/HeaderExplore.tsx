@@ -14,12 +14,7 @@ interface HeaderExploreProps {
 const HeaderExplore: React.FC<HeaderExploreProps> = ({navigation, user}) => {
   return (
     <View>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          marginHorizontal: 5,
-        }}>
+      <View style={styles.viewContainerIcons}>
         <TouchableOpacity
           activeOpacity={0.7}
           onPress={() => navigation.toggleDrawer()}>
@@ -28,22 +23,9 @@ const HeaderExplore: React.FC<HeaderExploreProps> = ({navigation, user}) => {
 
         <Icon name="notifications-none" size={22} />
       </View>
-      <Text
-        style={{
-          marginTop: 10,
-          fontSize: 20,
-          fontWeight: 'bold',
-          marginHorizontal: 15,
-        }}>
-        Bienvenid@ de vuelta {user?.name}
-      </Text>
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          marginHorizontal: 10,
-        }}>
-        <View style={{flex: 1, marginRight: 10}}>
+      <Text style={styles.txtWelcome}>Bienvenid@ de vuelta {user?.name}</Text>
+      <View style={styles.viewContainerSearch}>
+        <View style={styles.viewContainerInput}>
           <CustomInput
             iconName="search"
             placeholder="¿Qué quieres pedir?"
@@ -54,20 +36,43 @@ const HeaderExplore: React.FC<HeaderExploreProps> = ({navigation, user}) => {
             }}
           />
         </View>
-        <TouchableOpacity
-          style={{
-            justifyContent: 'center',
-            // borderWidth: 2,
-            borderRadius: 10,
-            alignItems: 'center',
-            padding: 5,
-            backgroundColor: ColorsApp.PRIMARY_COLOR,
-          }}>
+        <TouchableOpacity style={styles.btnFilter}>
           <Icon name="filter-alt" size={24} color={ColorsApp.WHITE_COLOR} />
         </TouchableOpacity>
       </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  viewContainerIcons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginHorizontal: 5,
+  },
+  txtWelcome: {
+    marginTop: 10,
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginHorizontal: 15,
+  },
+  viewContainerSearch: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginHorizontal: 10,
+  },
+  viewContainerInput: {
+    flex: 1,
+    marginRight: 10,
+  },
+  btnFilter: {
+    justifyContent: 'center',
+    // borderWidth: 2,
+    borderRadius: 10,
+    alignItems: 'center',
+    padding: 5,
+    backgroundColor: ColorsApp.PRIMARY_COLOR,
+  },
+});
 
 export default HeaderExplore;
