@@ -1,9 +1,16 @@
 import React from 'react';
-import {View, Text, StyleSheet, FlatList, Image} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {IBusiness} from 'store/business/interfaces/business.interface';
-import {ColorsApp} from 'utils/enums';
-
+import {ColorsApp, RoutesNames} from 'utils/enums';
+import {useNavigation} from '@react-navigation/native';
 interface SliderHorizontalProps {
   businesses: IBusiness[];
   title: string;
@@ -13,6 +20,7 @@ const SliderHorizontal: React.FC<SliderHorizontalProps> = ({
   businesses,
   title,
 }) => {
+  const navigation = useNavigation();
   return (
     <View>
       <Text style={styles.txtTitleSection}>{title}</Text>
@@ -22,7 +30,17 @@ const SliderHorizontal: React.FC<SliderHorizontalProps> = ({
         showsHorizontalScrollIndicator={false}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({item}) => (
-          <View style={styles.viewContainerCard}>
+          <TouchableOpacity
+            style={styles.viewContainerCard}
+            activeOpacity={0.7}
+            onPress={() => {
+              navigation.navigate(RoutesNames.BUSINESS_STACK, {
+                screen: RoutesNames.BUSINESS_SCREEN,
+                params: {
+                  business: item,
+                },
+              });
+            }}>
             <View>
               <Image
                 source={{
@@ -53,7 +71,7 @@ const SliderHorizontal: React.FC<SliderHorizontalProps> = ({
                 </View>
               </View>
             </View>
-          </View>
+          </TouchableOpacity>
         )}
       />
     </View>

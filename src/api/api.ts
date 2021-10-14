@@ -44,13 +44,13 @@ api.interceptors.response.use(
       !originalRequest._retry &&
       jwtExpired === 'TokenExpiredError'
     ) {
-      console.log({msg: 'llegoo'});
+      // console.log({msg: 'llegoo'});
       originalRequest._retry = true;
       return api
         .post('/auth/refresh-token', {refreshToken: refreshToken})
         .then(async response => {
           if (response.status === 200) {
-            console.log({resp: response.data});
+            // console.log({resp: response.data});
             await AsyncStorage.setItem('token', response.data.token);
             await AsyncStorage.setItem(
               'refreshToken',

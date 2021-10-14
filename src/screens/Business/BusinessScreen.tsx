@@ -17,16 +17,16 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {ColorsApp, DimensionsDevice, RoutesNames} from 'utils/enums';
 import {useDispatch, useSelector} from 'react-redux';
-import {businessGetInfo} from 'store/business/business.actions';
+import {
+  businessGetInfo,
+  businessGetSubcategories,
+  businessGetProducts,
+} from 'store/business/business.actions';
 import {RootStore} from 'store/store';
-const data = [
-  'Combos',
-  'Entradas',
-  'Postres',
-  'Bebidas',
-  'Tacos',
-  'Enchiladas',
-];
+import {BusinessStackParamList} from 'navigation/BusinessStack';
+import HeaderBusiness from 'components/Business/HeaderBusiness';
+import SliderSubcategories from 'components/Business/SliderSubcategories';
+import ListProductByCategories from 'components/Business/ListProductsByCategories';
 
 const cardInfo = [
   {
@@ -99,24 +99,39 @@ const cardInfo = [
     ],
   },
 ];
-interface BusinessScreenProps extends StackScreenProps<any, any> {}
+interface BusinessScreenProps
+  extends StackScreenProps<
+    BusinessStackParamList,
+    RoutesNames.BUSINESS_SCREEN
+  > {}
 
 const BusinessScreen: React.FC<BusinessScreenProps> = ({navigation, route}) => {
   const {top} = useSafeAreaInsets();
-  const id = route.params?.id as string;
+  const {business} = route.params;
+  // console.log(JSON.stringify({business}, null, 3));
   const dispatch = useDispatch();
-  const businessLoadedInfo = (id: string) => dispatch(businessGetInfo(id));
-  const {business} = useSelector((store: RootStore) => store.business);
-  console.log({business});
+  const getBusinessInfo = (id: string) => dispatch(businessGetInfo(id));
+  const getSubcategories = (id: string) =>
+    dispatch(businessGetSubcategories(id));
+  const {subcategories, products, productsByCategory} = useSelector(
+    (store: RootStore) => store.business,
+  );
+  const getProducts = (id: string) => dispatch(businessGetProducts(id));
+  // console.log({subcategories});
   useEffect(() => {
-    businessLoadedInfo(id);
+    getBusinessInfo(business._id);
+    getSubcategories(business._id);
+    getProducts(business._id);
   }, []);
   return (
-    <>
-      <FadeBackgroundImage
-        uri={
-          'https://www.comedera.com/wp-content/uploads/2021/02/comidas-rapidas-1.jpg'
-        }
+    <View style={{flex: 1}}>
+      <HeaderBusiness business={business} />
+      <View>
+        <SliderSubcategories categories={subcategories} />
+      </View>
+      <ListProductByCategories productsByCategory={productsByCategory} />
+      {/* <FadeBackgroundImage
+        uri={business.background}
         style={{
           height: DimensionsDevice.HEIGHT_DEVICE * 0.4,
           width: '100%',
@@ -134,13 +149,13 @@ const BusinessScreen: React.FC<BusinessScreenProps> = ({navigation, route}) => {
           />
           <View
             style={{
-              // alignItems: 'center',
+       
               paddingTop: top + 20,
               justifyContent: 'center',
               flex: 1,
-              // borderWidth: 2,
+        
             }}>
-            {/* container icons */}
+ 
             <View
               style={{
                 flexDirection: 'row',
@@ -159,12 +174,12 @@ const BusinessScreen: React.FC<BusinessScreenProps> = ({navigation, route}) => {
                 <Icon name="info" size={28} color={'#fff'} />
               </View>
             </View>
-            {/* container body */}
+   
             <View
               style={{
                 marginHorizontal: 20,
                 flex: 1,
-                // borderWidth: 1,
+       
                 justifyContent: 'flex-end',
               }}>
               <Button
@@ -176,7 +191,7 @@ const BusinessScreen: React.FC<BusinessScreenProps> = ({navigation, route}) => {
                 }}
               />
               <Text style={{color: '#fff', fontSize: 24, fontWeight: 'bold'}}>
-                Restaurante Marino "Los sabores del sur"
+                {business.name}
               </Text>
               <View
                 style={{
@@ -186,28 +201,26 @@ const BusinessScreen: React.FC<BusinessScreenProps> = ({navigation, route}) => {
                 }}>
                 <Icon name="location-on" size={18} color={'#fff'} />
                 <Text style={{color: '#fff', fontWeight: '500'}}>
-                  CR54+F6 Menlo Park, California, EE. UU.
+                  {business.address}
                 </Text>
               </View>
               <Text></Text>
             </View>
-            {/* conatiner stadistics */}
+ 
             <View
               style={{
                 flexDirection: 'row',
-                // borderWidth: 1,
                 justifyContent: 'space-evenly',
                 alignItems: 'center',
                 marginHorizontal: 20,
-                // flex: 1,
               }}>
               <View style={styles.viewContainerStats}>
                 <View style={styles.viewStatsHeader}>
                   <Icon name={'star'} size={20} color={'#FFF'} />
-                  <Text style={styles.txtStats}>4.5</Text>
+                  <Text style={styles.txtStats}>{business.rating}</Text>
                 </View>
 
-                <Text style={styles.txtStatsMessage}>351 Ratings</Text>
+                <Text style={styles.txtStatsMessage}>Ratings</Text>
               </View>
               <View
                 style={{
@@ -222,12 +235,10 @@ const BusinessScreen: React.FC<BusinessScreenProps> = ({navigation, route}) => {
               <View
                 style={{
                   ...styles.viewContainerStats,
-                  // borderRightWidth: 1,
-                  // borderLeftWidth: 1,
                 }}>
                 <View style={styles.viewStatsHeader}>
                   <Icon name={'bookmark'} size={20} color={'#FFF'} />
-                  <Text style={styles.txtStats}>137k</Text>
+                  <Text style={styles.txtStats}>{business.rating}</Text>
                 </View>
 
                 <Text style={styles.txtStatsMessage}>Bookmark</Text>
@@ -246,7 +257,7 @@ const BusinessScreen: React.FC<BusinessScreenProps> = ({navigation, route}) => {
               <View style={styles.viewContainerStats}>
                 <View style={styles.viewStatsHeader}>
                   <Icon name={'image'} size={20} color={'#FFF'} />
-                  <Text style={styles.txtStats}>346</Text>
+                  <Text style={styles.txtStats}>{business.rating}</Text>
                 </View>
 
                 <Text style={styles.txtStatsMessage}>Photos</Text>
@@ -254,8 +265,8 @@ const BusinessScreen: React.FC<BusinessScreenProps> = ({navigation, route}) => {
             </View>
           </View>
         </>
-      </FadeBackgroundImage>
-      <View>
+      </FadeBackgroundImage> */}
+      {/* <View>
         <FlatList
           data={data}
           horizontal
@@ -285,9 +296,9 @@ const BusinessScreen: React.FC<BusinessScreenProps> = ({navigation, route}) => {
           )}
           // contentContainerStyle={{borderWidth: 1}}
         />
-      </View>
+      </View> */}
       {/* <ScrollView keyboardShouldPersistTaps={'handled'}> */}
-      <SectionList
+      {/* <SectionList
         sections={cardInfo}
         // data={cardInfo}
         showsVerticalScrollIndicator={false}
@@ -315,11 +326,11 @@ const BusinessScreen: React.FC<BusinessScreenProps> = ({navigation, route}) => {
         renderItem={({item}) => (
           <TouchableOpacity
             activeOpacity={0.8}
-            onPress={() => {
-              navigation.navigate(RoutesNames.BUSINESS_STACK, {
-                screen: RoutesNames.PRODUCT_SCREEN,
-              });
-            }}
+            // onPress={() => {
+            //   navigation.navigate(RoutesNames.BUSINESS_STACK, {
+            //     screen: RoutesNames.PRODUCT_SCREEN,
+            //   });
+            // }}
             style={{
               flexDirection: 'row',
               // borderWidth: 1,
@@ -379,14 +390,14 @@ const BusinessScreen: React.FC<BusinessScreenProps> = ({navigation, route}) => {
           paddingBottom: 20,
           // backgroundColor: ColorsApp.PRIMARY_OPACITY_COLOR,
         }}
-      />
+      /> */}
       {/* </ScrollView> */}
-      <Button
+      {/* <Button
         title={'Ver mi pedido (5)'}
         onPress={() => {
-          navigation.navigate(RoutesNames.BUSINESS_STACK, {
-            screen: RoutesNames.BUSINESS_SHOPPING_SCREEN,
-          });
+          // navigation.navigate(RoutesNames.BUSINESS_STACK, {
+          //   screen: RoutesNames.BUSINESS_SHOPPING_SCREEN,
+          // });
         }}
         rightIcon={'shopping-cart'}
         btnStyle={{
@@ -409,8 +420,8 @@ const BusinessScreen: React.FC<BusinessScreenProps> = ({navigation, route}) => {
         txtRightStyle={{
           fontWeight: '500',
         }}
-      />
-    </>
+      /> */}
+    </View>
   );
 };
 

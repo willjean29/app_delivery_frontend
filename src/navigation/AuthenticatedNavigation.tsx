@@ -1,6 +1,9 @@
 import React, {useState} from 'react';
 import {View, Text, Image} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
+import {
+  NavigationContainer,
+  NavigatorScreenParams,
+} from '@react-navigation/native';
 import {
   createDrawerNavigator,
   DrawerContentComponentProps,
@@ -13,11 +16,21 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import UserDefault from 'assets/img/profile.jpg';
 import RegisterBusinessScreen from 'screens/Business/RegisterBusinessScreen';
 import {ColorsApp, RoutesNames} from 'utils/enums';
-import BusinessStack from 'navigation/BusinessStack';
+import BusinessStack, {BusinessStackParamList} from 'navigation/BusinessStack';
 import ModalSignOut from 'components/UI/ModalSignOut';
 import {useSelector} from 'react-redux';
 import {RootStore} from 'store/store';
-const Drawer = createDrawerNavigator();
+
+export type AuthenticatedStackParamList = {
+  BottomTabStack: undefined;
+  BusinessStack: NavigatorScreenParams<BusinessStackParamList>;
+};
+declare global {
+  namespace ReactNavigation {
+    interface RootParamList extends AuthenticatedStackParamList {}
+  }
+}
+const Drawer = createDrawerNavigator<AuthenticatedStackParamList>();
 interface AuthenticatedNavigationProps {}
 
 const AuthenticatedNavigation: React.FC<AuthenticatedNavigationProps> = () => {

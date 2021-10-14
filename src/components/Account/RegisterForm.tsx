@@ -10,7 +10,7 @@ import OptionMessageAccount from 'components/Account/OptionMessageAccount';
 import {RoutesNames} from 'utils/enums';
 import {useDispatch} from 'react-redux';
 import {UserSignupDto} from 'store/user/dtos/user.dto';
-import {userSigin, userSignup} from 'store/user/user.actions';
+import {userSignin, userSignup} from 'store/user/user.actions';
 
 interface RegisterFormProps {}
 

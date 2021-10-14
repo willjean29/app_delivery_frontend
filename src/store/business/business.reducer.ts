@@ -6,10 +6,12 @@ import {
   BUSINESS_GET_ALL,
   BusinessDispatchTypes,
 } from 'store/business/business.types';
+import {groupByCategory} from 'utils/methods';
 const businessinitialState: IBusinessState = {
   business: null,
-  categories: [],
+  subcategories: [],
   products: [],
+  productsByCategory: [],
   businesses: [],
 };
 
@@ -31,12 +33,16 @@ const businessReducer = (
     case BUSINESS_GET_CATEGORIES:
       return {
         ...state,
-        categories: action.payload,
+        subcategories: action.payload,
       };
     case BUSINESS_GET_ALL_PRODUCTS:
       return {
         ...state,
         products: action.payload,
+        productsByCategory: groupByCategory(
+          state.subcategories,
+          action.payload,
+        ),
       };
     default:
       return state;

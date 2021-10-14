@@ -57,7 +57,7 @@ export interface IProduct {
   description: string;
   img: string;
   price: number;
-  categorie: string;
+  categorie: ISubcategorie;
   business: string;
   __v: number;
 }
@@ -67,4 +67,9 @@ export interface IProduct {
 export interface IBusinessAllResponse {
   success: boolean;
   business: IBusiness[];
+}
+
+export interface IProductsByCategory {
+  categorie: ISubcategorie;
+  data: IProduct[];
 }

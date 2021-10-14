@@ -7,8 +7,20 @@ import ProductScreen from 'screens/Business/ProductScreen';
 import BusinessShoppingScreen from 'screens/Business/BusinessShoppingScreen';
 import CreateProductScreen from 'screens/Business/CreateProductScreen';
 import CreateCategorieScreen from 'screens/Business/CreateCategorie';
+import {IBusiness} from 'store/business/interfaces/business.interface';
 
-const Stack = createStackNavigator();
+export type BusinessStackParamList = {
+  RegisterBusinessScreen: undefined;
+  BusinessScreen: {
+    business: IBusiness;
+  };
+  ProductScreen: undefined;
+  BusinessShoppingScreen: undefined;
+  CreateProductScreen: undefined;
+  CreateCategorieScreen: undefined;
+};
+
+const Stack = createStackNavigator<BusinessStackParamList>();
 interface BusinessStackProps {}
 
 const BusinessStack: React.FC<BusinessStackProps> = () => {

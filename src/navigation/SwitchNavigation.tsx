@@ -13,7 +13,7 @@ const SwitchNavigation: React.FC<SwitchNavigationProps> = () => {
   const dispatch = useDispatch();
   const checking = () => dispatch(userChecking());
   const {status, user} = useSelector((store: RootStore) => store.user);
-  console.log(JSON.stringify({user}, null, 3));
+  // console.log(JSON.stringify({user}, null, 3));
   useEffect(() => {
     checking();
   }, []);
