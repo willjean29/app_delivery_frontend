@@ -5,10 +5,12 @@ import {ISubcategorie} from 'store/business/interfaces/business.interface';
 import {ColorsApp} from 'utils/enums';
 interface SliderSubcategoriesProps {
   categories: ISubcategorie[];
+  setIndexCategory: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const SliderSubcategories: React.FC<SliderSubcategoriesProps> = ({
   categories,
+  setIndexCategory,
 }) => {
   return (
     <FlatList
@@ -16,10 +18,12 @@ const SliderSubcategories: React.FC<SliderSubcategoriesProps> = ({
       horizontal
       showsHorizontalScrollIndicator={false}
       keyExtractor={(item, index) => index.toString()}
-      renderItem={({item}) => (
+      renderItem={({item, index}) => (
         <Button
           title={item.name}
-          onPress={() => {}}
+          onPress={() => {
+            setIndexCategory(index);
+          }}
           btnStyle={{
             backgroundColor: ColorsApp.PRIMARY_OPACITY_COLOR,
             // flex: 1,

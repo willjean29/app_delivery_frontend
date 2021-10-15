@@ -2,7 +2,7 @@ import FadeBackgroundImage from 'components/UI/FadeBackgroundImage';
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {IBusiness} from 'store/business/interfaces/business.interface';
-import {DimensionsDevice} from 'utils/enums';
+import {ColorsApp, DimensionsDevice} from 'utils/enums';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Button from 'components/UI/Button';
@@ -13,48 +13,27 @@ interface HeaderBusinessProps {
 const HeaderBusiness: React.FC<HeaderBusinessProps> = ({business}) => {
   const {top} = useSafeAreaInsets();
   return (
-    <FadeBackgroundImage
-      uri={business.background}
-      style={{
-        height: DimensionsDevice.HEIGHT_DEVICE * 0.4,
-        width: '100%',
-      }}>
+    <FadeBackgroundImage uri={business.background} style={styles.backgroudImg}>
       <>
+        <View style={styles.viewContainerOpacity} />
         <View
           style={{
-            backgroundColor: 'rgba(0,0,0,0.3)',
-            position: 'absolute',
-            bottom: 0,
-            top: 0,
-            left: 0,
-            right: 0,
-          }}
-        />
-        <View
-          style={{
-            // alignItems: 'center',
             paddingTop: top + 20,
             justifyContent: 'center',
             flex: 1,
-            // borderWidth: 2,
           }}>
           {/* container icons */}
-          <View
-            style={{
-              flexDirection: 'row',
-              marginHorizontal: 20,
-              justifyContent: 'space-between',
-            }}>
-            <Icon name="arrow-back" size={28} color={'#fff'} />
+          <View style={styles.viewContainerIcons}>
+            <Icon name="arrow-back" size={28} color={ColorsApp.WHITE_COLOR} />
             <View style={{flexDirection: 'row'}}>
-              <Icon name="bookmark" size={28} color={'#fff'} />
+              <Icon name="bookmark" size={28} color={ColorsApp.WHITE_COLOR} />
               <Icon
                 name="share"
                 size={28}
-                color={'#fff'}
+                color={ColorsApp.WHITE_COLOR}
                 style={{marginHorizontal: 10}}
               />
-              <Icon name="info" size={28} color={'#fff'} />
+              <Icon name="info" size={28} color={ColorsApp.WHITE_COLOR} />
             </View>
           </View>
           {/* container body */}
@@ -62,7 +41,6 @@ const HeaderBusiness: React.FC<HeaderBusinessProps> = ({business}) => {
             style={{
               marginHorizontal: 20,
               flex: 1,
-              // borderWidth: 1,
               justifyContent: 'flex-end',
             }}>
             <Button
@@ -73,82 +51,36 @@ const HeaderBusiness: React.FC<HeaderBusinessProps> = ({business}) => {
                 fontSize: 12,
               }}
             />
-            <Text style={{color: '#fff', fontSize: 24, fontWeight: 'bold'}}>
-              {business.name}
-            </Text>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginVertical: 10,
-              }}>
-              <Icon name="location-on" size={18} color={'#fff'} />
-              <Text style={{color: '#fff', fontWeight: '500'}}>
-                {business.address}
-              </Text>
+            <Text style={styles.txtBusiness}>{business.name}</Text>
+            <View style={styles.viewContainerLocation}>
+              <Icon
+                name="location-on"
+                size={18}
+                color={ColorsApp.WHITE_COLOR}
+              />
+              <Text style={styles.txtLocation}>{business.address}</Text>
             </View>
             <Text></Text>
           </View>
           {/* conatiner stadistics */}
-          <View
-            style={{
-              flexDirection: 'row',
-              // borderWidth: 1,
-              justifyContent: 'space-evenly',
-              alignItems: 'center',
-              marginHorizontal: 20,
-              // flex: 1,
-            }}>
-            <View style={styles.viewContainerStats}>
-              <View style={styles.viewStatsHeader}>
-                <Icon name={'star'} size={20} color={'#FFF'} />
-                <Text style={styles.txtStats}>{business.rating}</Text>
-              </View>
-
-              <Text style={styles.txtStatsMessage}>Ratings</Text>
-            </View>
-            <View
-              style={{
-                backgroundColor: '#FFF',
-                height: 35,
-                width: 2,
-                marginVertical: 15,
-                position: 'absolute',
-                left: '30%',
-              }}
-            />
-            <View
-              style={{
-                ...styles.viewContainerStats,
-                // borderRightWidth: 1,
-                // borderLeftWidth: 1,
-              }}>
-              <View style={styles.viewStatsHeader}>
-                <Icon name={'bookmark'} size={20} color={'#FFF'} />
-                <Text style={styles.txtStats}>{business.rating}</Text>
-              </View>
-
-              <Text style={styles.txtStatsMessage}>Bookmark</Text>
-            </View>
-            <View
-              style={{
-                backgroundColor: '#FFF',
-                height: 35,
-                width: 2,
-                marginVertical: 15,
-                position: 'absolute',
-                left: '65%',
-              }}
+          <View style={styles.viewContainerAtributes}>
+            <ConatinerStats
+              iconName="star"
+              data={business.rating}
+              title="Ratings"
             />
 
-            <View style={styles.viewContainerStats}>
-              <View style={styles.viewStatsHeader}>
-                <Icon name={'image'} size={20} color={'#FFF'} />
-                <Text style={styles.txtStats}>{business.rating}</Text>
-              </View>
+            <ConatinerStats
+              iconName="bookmark"
+              data={business.rating}
+              title="Favorites"
+            />
 
-              <Text style={styles.txtStatsMessage}>Photos</Text>
-            </View>
+            <ConatinerStats
+              iconName="image"
+              data={business.rating}
+              title="Photos"
+            />
           </View>
         </View>
       </>
@@ -156,10 +88,71 @@ const HeaderBusiness: React.FC<HeaderBusinessProps> = ({business}) => {
   );
 };
 
+interface ConatinerStatsProps {
+  iconName: string;
+  title: string;
+  data: number;
+}
+
+const ConatinerStats: React.FC<ConatinerStatsProps> = ({
+  iconName,
+  title,
+  data,
+}) => {
+  return (
+    <View style={styles.viewContainerStats}>
+      <View style={styles.viewStatsHeader}>
+        <Icon name={iconName} size={20} color={ColorsApp.WHITE_COLOR} />
+        <Text style={styles.txtStats}>{data}</Text>
+      </View>
+
+      <Text style={styles.txtStatsMessage}>{title}</Text>
+    </View>
+  );
+};
+
 const styles = StyleSheet.create({
+  backgroudImg: {
+    height: DimensionsDevice.HEIGHT_DEVICE * 0.4,
+    width: '100%',
+  },
+  viewContainer: {},
+  viewContainerIcons: {
+    flexDirection: 'row',
+    marginHorizontal: 20,
+    justifyContent: 'space-between',
+  },
+  viewContainerOpacity: {
+    backgroundColor: 'rgba(0,0,0,0.3)',
+    position: 'absolute',
+    bottom: 0,
+    top: 0,
+    left: 0,
+    right: 0,
+  },
+  txtBusiness: {
+    color: ColorsApp.WHITE_COLOR,
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  viewContainerLocation: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 10,
+  },
+  txtLocation: {
+    color: ColorsApp.WHITE_COLOR,
+    fontWeight: '500',
+  },
+  viewContainerAtributes: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    marginHorizontal: 20,
+  },
   viewContainerStats: {
     borderTopWidth: 2,
-    borderColor: '#fff',
+    borderColor: ColorsApp.WHITE_COLOR,
     flex: 1,
     padding: 10,
   },
@@ -168,12 +161,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   txtStats: {
-    color: '#fff',
+    color: ColorsApp.WHITE_COLOR,
     paddingHorizontal: 5,
     marginVertical: 5,
   },
   txtStatsMessage: {
-    color: '#fff',
+    color: ColorsApp.WHITE_COLOR,
   },
 });
 
